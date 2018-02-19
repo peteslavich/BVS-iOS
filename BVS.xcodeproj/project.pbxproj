@@ -8,22 +8,30 @@
 
 /* Begin PBXBuildFile section */
 		0A0E5D57203670F50005ACDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D56203670F50005ACDE /* AppDelegate.swift */; };
-		0A0E5D59203670F50005ACDE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D58203670F50005ACDE /* ViewController.swift */; };
+		0A0E5D59203670F50005ACDE /* BVSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D58203670F50005ACDE /* BVSViewController.swift */; };
 		0A0E5D5C203670F50005ACDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A0E5D5A203670F50005ACDE /* Main.storyboard */; };
 		0A0E5D5F203670F50005ACDE /* BVS.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D5D203670F50005ACDE /* BVS.xcdatamodeld */; };
 		0A0E5D61203670F50005ACDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0A0E5D60203670F50005ACDE /* Assets.xcassets */; };
 		0A0E5D64203670F50005ACDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A0E5D62203670F50005ACDE /* LaunchScreen.storyboard */; };
+		0A0E5D6D203A0CB60005ACDE /* CoreBluetooth.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A0E5D6C203A0CB60005ACDE /* CoreBluetooth.framework */; };
+		0A0E5D70203A2F550005ACDE /* Measurement+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D6E203A2F550005ACDE /* Measurement+CoreDataClass.swift */; };
+		0A0E5D71203A2F550005ACDE /* Measurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D6F203A2F550005ACDE /* Measurement+CoreDataProperties.swift */; };
+		0A0E5D75203A716A0005ACDE /* MeasurementHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D74203A716A0005ACDE /* MeasurementHistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0A0E5D53203670F50005ACDE /* BVS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BVS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A0E5D56203670F50005ACDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		0A0E5D58203670F50005ACDE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		0A0E5D58203670F50005ACDE /* BVSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BVSViewController.swift; sourceTree = "<group>"; };
 		0A0E5D5B203670F50005ACDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0A0E5D5E203670F50005ACDE /* BVS.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = BVS.xcdatamodel; sourceTree = "<group>"; };
 		0A0E5D60203670F50005ACDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0A0E5D63203670F50005ACDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		0A0E5D65203670F50005ACDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		0A0E5D6C203A0CB60005ACDE /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		0A0E5D6E203A2F550005ACDE /* Measurement+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Measurement+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0A0E5D6F203A2F550005ACDE /* Measurement+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Measurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0A0E5D74203A716A0005ACDE /* MeasurementHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementHistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0E5D6D203A0CB60005ACDE /* CoreBluetooth.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -42,6 +51,7 @@
 			children = (
 				0A0E5D55203670F50005ACDE /* BVS */,
 				0A0E5D54203670F50005ACDE /* Products */,
+				0A0E5D6B203A0CB50005ACDE /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -57,7 +67,8 @@
 			isa = PBXGroup;
 			children = (
 				0A0E5D56203670F50005ACDE /* AppDelegate.swift */,
-				0A0E5D58203670F50005ACDE /* ViewController.swift */,
+				0A0E5D73203A33630005ACDE /* ViewControllers */,
+				0A0E5D72203A33470005ACDE /* DataModels */,
 				0A0E5D5A203670F50005ACDE /* Main.storyboard */,
 				0A0E5D60203670F50005ACDE /* Assets.xcassets */,
 				0A0E5D62203670F50005ACDE /* LaunchScreen.storyboard */,
@@ -65,6 +76,32 @@
 				0A0E5D5D203670F50005ACDE /* BVS.xcdatamodeld */,
 			);
 			path = BVS;
+			sourceTree = "<group>";
+		};
+		0A0E5D6B203A0CB50005ACDE /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0A0E5D6C203A0CB60005ACDE /* CoreBluetooth.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		0A0E5D72203A33470005ACDE /* DataModels */ = {
+			isa = PBXGroup;
+			children = (
+				0A0E5D6E203A2F550005ACDE /* Measurement+CoreDataClass.swift */,
+				0A0E5D6F203A2F550005ACDE /* Measurement+CoreDataProperties.swift */,
+			);
+			path = DataModels;
+			sourceTree = "<group>";
+		};
+		0A0E5D73203A33630005ACDE /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0A0E5D58203670F50005ACDE /* BVSViewController.swift */,
+				0A0E5D74203A716A0005ACDE /* MeasurementHistoryViewController.swift */,
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -139,7 +176,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0A0E5D59203670F50005ACDE /* ViewController.swift in Sources */,
+				0A0E5D70203A2F550005ACDE /* Measurement+CoreDataClass.swift in Sources */,
+				0A0E5D59203670F50005ACDE /* BVSViewController.swift in Sources */,
+				0A0E5D75203A716A0005ACDE /* MeasurementHistoryViewController.swift in Sources */,
+				0A0E5D71203A2F550005ACDE /* Measurement+CoreDataProperties.swift in Sources */,
 				0A0E5D57203670F50005ACDE /* AppDelegate.swift in Sources */,
 				0A0E5D5F203670F50005ACDE /* BVS.xcdatamodeld in Sources */,
 			);
@@ -279,6 +319,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9Q7DJNS43S;
 				INFOPLIST_FILE = BVS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.peteslavich.BVS;
@@ -293,6 +334,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 9Q7DJNS43S;
 				INFOPLIST_FILE = BVS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.peteslavich.BVS;
