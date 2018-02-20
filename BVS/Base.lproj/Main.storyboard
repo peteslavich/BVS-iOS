@@ -149,7 +149,7 @@
                         <outlet property="viewBottomDisplay" destination="jhi-mU-BhU" id="gPv-6X-dV9"/>
                         <outlet property="viewContainerLastMeasurement" destination="4O9-8e-rIr" id="B5e-ac-LOu"/>
                         <outlet property="viewContainerMeasuring" destination="ekt-Lf-9J7" id="uu3-aO-qml"/>
-                        <segue destination="h5t-5i-E9l" kind="presentation" identifier="ShowHistory" id="9Ob-5i-IHk"/>
+                        <segue destination="h5t-5i-E9l" kind="presentation" identifier="ShowMeasurementHistory" id="9Ob-5i-IHk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -194,10 +194,78 @@
                         <viewLayoutGuide key="safeArea" id="mGY-oN-BZ0"/>
                     </view>
                     <navigationItem key="navigationItem" id="JGb-TF-M9x"/>
+                    <connections>
+                        <segue destination="gvu-py-pnW" kind="show" identifier="ShowMeasurementDetail" id="EnD-gn-bNL"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWI-JR-TLT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2458" y="-183"/>
+            <point key="canvasLocation" x="2169" y="-176"/>
+        </scene>
+        <!--Measurement Detail View Controller-->
+        <scene sceneID="fzo-wS-qI7">
+            <objects>
+                <viewController id="gvu-py-pnW" customClass="MeasurementDetailViewController" customModule="BVS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="G95-VQ-eZ6">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="swb-F4-YYU">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="gvu-py-pnW" id="RGQ-iw-mfv"/>
+                                    <outlet property="delegate" destination="gvu-py-pnW" id="XwF-fB-24f"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="swb-F4-YYU" firstAttribute="top" secondItem="lF2-T2-5Th" secondAttribute="top" id="2ss-Gi-s30"/>
+                            <constraint firstItem="swb-F4-YYU" firstAttribute="leading" secondItem="lF2-T2-5Th" secondAttribute="leading" id="AgA-9m-F2B"/>
+                            <constraint firstItem="swb-F4-YYU" firstAttribute="trailing" secondItem="lF2-T2-5Th" secondAttribute="trailing" id="aor-kB-O9r"/>
+                            <constraint firstItem="swb-F4-YYU" firstAttribute="bottom" secondItem="lF2-T2-5Th" secondAttribute="bottom" id="pvI-Yi-Epg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="lF2-T2-5Th"/>
+                    </view>
+                    <connections>
+                        <segue destination="okS-fK-ciK" kind="show" identifier="ShowSubMeasurementDetail" id="9jn-tb-WU6"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fa2-CQ-6zb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3015" y="-204"/>
+        </scene>
+        <!--Sub Measurement Detail View Controller-->
+        <scene sceneID="pTz-nS-vlc">
+            <objects>
+                <viewController id="okS-fK-ciK" customClass="SubMeasurementDetailViewController" customModule="BVS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nve-uM-bGI">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="UVv-va-Zdo">
+                                <rect key="frame" x="0.0" y="164" width="375" height="503"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="okS-fK-ciK" id="w8t-2D-Pbi"/>
+                                    <outlet property="delegate" destination="okS-fK-ciK" id="KAW-k7-52V"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="UVv-va-Zdo" firstAttribute="leading" secondItem="ACb-zD-7sT" secondAttribute="leading" id="D8q-gn-xiI"/>
+                            <constraint firstItem="UVv-va-Zdo" firstAttribute="trailing" secondItem="ACb-zD-7sT" secondAttribute="trailing" id="nwO-2p-30Q"/>
+                            <constraint firstItem="UVv-va-Zdo" firstAttribute="top" secondItem="ACb-zD-7sT" secondAttribute="top" constant="100" id="o5r-Du-JW5"/>
+                            <constraint firstItem="UVv-va-Zdo" firstAttribute="bottom" secondItem="ACb-zD-7sT" secondAttribute="bottom" id="pmf-A5-v2b"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="ACb-zD-7sT"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Jye-Hr-S7A" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3740" y="-203.74812593703149"/>
         </scene>
     </scenes>
 </document>

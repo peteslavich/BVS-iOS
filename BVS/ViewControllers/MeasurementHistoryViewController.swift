@@ -13,6 +13,7 @@ import CoreData
 class MeasurementHistoryViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var measurements : [Measurement] = [Measurement]()
+    var selectedIndex : Int = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,16 +37,27 @@ class MeasurementHistoryViewController : UIViewController, UITableViewDataSource
         
         cell?.detailTextLabel?.text = dateFormatterGet.string(from: measurement.measurementOn! as Date)
         
-        
-        
         return cell!
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.selectedIndex = indexPath.row
+        self.performSegue(withIdentifier: "ShowMeasurementDetail", sender: nil)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let measurementDetail = segue.destination as! MeasurementDetailViewController
+        measurementDetail.measurement = self.measurements[self.selectedIndex]
+    }
+    
     
     func updateData() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         
-        let measurementFetch = NSFetchRequest(entityName: "Measurement") as NSFetchRequest<Measurement>
+        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
+        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: false)
+        measurementFetch.sortDescriptors = [sort]
         
         do {
             self.measurements = try context.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]

@@ -19,6 +19,8 @@
 		0A0E5D75203A716A0005ACDE /* MeasurementHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D74203A716A0005ACDE /* MeasurementHistoryViewController.swift */; };
 		0A0E5D78203B57670005ACDE /* SubMeasurement+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D76203B57670005ACDE /* SubMeasurement+CoreDataClass.swift */; };
 		0A0E5D79203B57670005ACDE /* SubMeasurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D77203B57670005ACDE /* SubMeasurement+CoreDataProperties.swift */; };
+		0A0E5D7B203B6C2D0005ACDE /* MeasurementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D7A203B6C2D0005ACDE /* MeasurementDetailViewController.swift */; };
+		0A0E5D7D203B6C480005ACDE /* SubMeasurementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D7C203B6C480005ACDE /* SubMeasurementDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		0A0E5D74203A716A0005ACDE /* MeasurementHistoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementHistoryViewController.swift; sourceTree = "<group>"; };
 		0A0E5D76203B57670005ACDE /* SubMeasurement+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubMeasurement+CoreDataClass.swift"; sourceTree = "<group>"; };
 		0A0E5D77203B57670005ACDE /* SubMeasurement+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubMeasurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0A0E5D7A203B6C2D0005ACDE /* MeasurementDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementDetailViewController.swift; sourceTree = "<group>"; };
+		0A0E5D7C203B6C480005ACDE /* SubMeasurementDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMeasurementDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +110,8 @@
 			children = (
 				0A0E5D58203670F50005ACDE /* BVSViewController.swift */,
 				0A0E5D74203A716A0005ACDE /* MeasurementHistoryViewController.swift */,
+				0A0E5D7A203B6C2D0005ACDE /* MeasurementDetailViewController.swift */,
+				0A0E5D7C203B6C480005ACDE /* SubMeasurementDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -184,6 +190,8 @@
 			files = (
 				0A0E5D70203A2F550005ACDE /* Measurement+CoreDataClass.swift in Sources */,
 				0A0E5D59203670F50005ACDE /* BVSViewController.swift in Sources */,
+				0A0E5D7B203B6C2D0005ACDE /* MeasurementDetailViewController.swift in Sources */,
+				0A0E5D7D203B6C480005ACDE /* SubMeasurementDetailViewController.swift in Sources */,
 				0A0E5D75203A716A0005ACDE /* MeasurementHistoryViewController.swift in Sources */,
 				0A0E5D78203B57670005ACDE /* SubMeasurement+CoreDataClass.swift in Sources */,
 				0A0E5D71203A2F550005ACDE /* Measurement+CoreDataProperties.swift in Sources */,

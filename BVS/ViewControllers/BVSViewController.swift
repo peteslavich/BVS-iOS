@@ -44,7 +44,7 @@ class BVSViewController: UIViewController {
     }
     
     @IBAction func showHistory(_ sender: Any) {
-        performSegue(withIdentifier: "ShowHistory", sender: nil)
+        performSegue(withIdentifier: "ShowMeasurementHistory", sender: nil)
     }
     
     @objc func measurementFinished() {
@@ -60,6 +60,20 @@ class BVSViewController: UIViewController {
         let dn = NSDecimalNumber(string:d)
         measurement.volume = dn
 
+        for i in 0...2 {
+            let subMeasurement = NSEntityDescription.insertNewObject(forEntityName: "SubMeasurement", into: context) as! SubMeasurement
+            for j in 1...8 {
+                for k in 1...8 {
+                    let ddd = dd + Double(10*j + k)
+                    subMeasurement[j,k] = NSDecimalNumber(string:String(format:"%.1f",ddd))
+                }
+            }
+            subMeasurement.volume = dn
+            let timeInterval = TimeInterval(i)
+            subMeasurement.measurementOn = ((measurement.measurementOn! as Date) - timeInterval) as NSDate
+            subMeasurement.measurement = measurement
+            measurement.addToSubMeasurements(subMeasurement)
+        }
         do {
             try context.save()
         }
