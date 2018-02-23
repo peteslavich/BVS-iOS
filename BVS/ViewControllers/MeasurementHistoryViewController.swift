@@ -18,6 +18,7 @@ class MeasurementHistoryViewController : UIViewController, UITableViewDataSource
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateData()
+        self.navigationItem.title = "Measurement History"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

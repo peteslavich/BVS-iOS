@@ -19,6 +19,7 @@ class MeasurementDetailViewController : UIViewController, UITableViewDataSource,
     override func viewDidLoad() {
         super.viewDidLoad()
         self.updateData()
+        self.navigationItem.title = "Measurement Detail"
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,5 +54,6 @@ class MeasurementDetailViewController : UIViewController, UITableViewDataSource,
     
     func updateData() {
         subMeasurementArray = measurement?.subMeasurements!.allObjects as! [SubMeasurement]
+        subMeasurementArray.sort(by: {$0.measurementOn!.compare($1.measurementOn! as Date) == .orderedAscending})
     }
 }

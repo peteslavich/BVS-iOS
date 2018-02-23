@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h5t-5i-E9l">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -10,10 +10,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--BVS View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="BVSViewController" customModule="BVS" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" userLabel="BVS View Controller" customClass="BVSViewController" customModule="BVS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -112,19 +112,11 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqE-rJ-rxD">
-                                <rect key="frame" x="164" y="45" width="46" height="30"/>
+                                <rect key="frame" x="109" y="104" width="157" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Simulate measurement"/>
                                 <connections>
                                     <action selector="debug:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vrH-2j-e0i"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m8a-1Y-zOH">
-                                <rect key="frame" x="246" y="45" width="46" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="showHistory:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aSP-NU-jR2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -140,6 +132,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
+                    <navigationItem key="navigationItem" id="YfC-08-fho">
+                        <barButtonItem key="rightBarButtonItem" title="History" id="ekL-r8-pdg">
+                            <connections>
+                                <action selector="showHistory:" destination="BYZ-38-t0r" id="gnP-nn-oRZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorMeasuring" destination="gF4-oO-Jym" id="pfC-4g-J73"/>
                         <outlet property="labelDeviceStatus" destination="mq1-5L-KyM" id="I7Y-ar-WAT"/>
@@ -149,12 +148,12 @@
                         <outlet property="viewBottomDisplay" destination="jhi-mU-BhU" id="gPv-6X-dV9"/>
                         <outlet property="viewContainerLastMeasurement" destination="4O9-8e-rIr" id="B5e-ac-LOu"/>
                         <outlet property="viewContainerMeasuring" destination="ekt-Lf-9J7" id="uu3-aO-qml"/>
-                        <segue destination="h5t-5i-E9l" kind="presentation" identifier="ShowMeasurementHistory" id="9Ob-5i-IHk"/>
+                        <segue destination="CJ8-bo-JTo" kind="show" identifier="ShowMeasurementHistory" id="X04-oI-WIk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="80.799999999999997" y="31.934032983508249"/>
+            <point key="canvasLocation" x="1308" y="-177"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="5t7-Z9-yTt">
@@ -165,12 +164,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="CJ8-bo-JTo" kind="relationship" relationship="rootViewController" id="o4D-eB-IgS"/>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="tGP-MY-Q5j"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5u9-2V-7Zn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1254" y="-183"/>
+            <point key="canvasLocation" x="1308" y="-1128"/>
         </scene>
         <!--Measurement History View Controller-->
         <scene sceneID="CyW-Rk-Fuz">
@@ -234,7 +233,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fa2-CQ-6zb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3015" y="-204"/>
+            <point key="canvasLocation" x="3006" y="-178"/>
         </scene>
         <!--Sub Measurement Detail View Controller-->
         <scene sceneID="pTz-nS-vlc">
@@ -265,7 +264,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jye-Hr-S7A" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3740" y="-203.74812593703149"/>
+            <point key="canvasLocation" x="3823" y="-179"/>
         </scene>
     </scenes>
 </document>

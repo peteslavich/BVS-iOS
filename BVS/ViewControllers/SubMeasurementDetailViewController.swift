@@ -14,6 +14,11 @@ class SubMeasurementDetailViewController : UIViewController, UITableViewDataSour
     
     var subMeasurement : SubMeasurement? = nil
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.navigationItem.title = "SubMeasurement Detail"
+    }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 8
     }
