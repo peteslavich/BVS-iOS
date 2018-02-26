@@ -24,7 +24,6 @@ class BVSViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         self.viewContainerLastMeasurement.layer.cornerRadius = 5
         self.viewContainerMeasuring.layer.cornerRadius = 5
@@ -32,7 +31,6 @@ class BVSViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
 
     @IBAction func debug(_ sender: Any) {

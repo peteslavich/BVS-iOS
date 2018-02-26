@@ -21,6 +21,8 @@
 		0A0E5D79203B57670005ACDE /* SubMeasurement+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D77203B57670005ACDE /* SubMeasurement+CoreDataProperties.swift */; };
 		0A0E5D7B203B6C2D0005ACDE /* MeasurementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D7A203B6C2D0005ACDE /* MeasurementDetailViewController.swift */; };
 		0A0E5D7D203B6C480005ACDE /* SubMeasurementDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D7C203B6C480005ACDE /* SubMeasurementDetailViewController.swift */; };
+		0A0E5D7F203FB5C20005ACDE /* MeasurementFeedbackVIewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D7E203FB5C20005ACDE /* MeasurementFeedbackVIewController.swift */; };
+		0A0E5D81203FB5E10005ACDE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D80203FB5E10005ACDE /* LoginViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,8 @@
 		0A0E5D77203B57670005ACDE /* SubMeasurement+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SubMeasurement+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0A0E5D7A203B6C2D0005ACDE /* MeasurementDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementDetailViewController.swift; sourceTree = "<group>"; };
 		0A0E5D7C203B6C480005ACDE /* SubMeasurementDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubMeasurementDetailViewController.swift; sourceTree = "<group>"; };
+		0A0E5D7E203FB5C20005ACDE /* MeasurementFeedbackVIewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasurementFeedbackVIewController.swift; sourceTree = "<group>"; };
+		0A0E5D80203FB5E10005ACDE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,11 +81,9 @@
 				0A0E5D56203670F50005ACDE /* AppDelegate.swift */,
 				0A0E5D73203A33630005ACDE /* ViewControllers */,
 				0A0E5D72203A33470005ACDE /* DataModels */,
-				0A0E5D5A203670F50005ACDE /* Main.storyboard */,
 				0A0E5D60203670F50005ACDE /* Assets.xcassets */,
 				0A0E5D62203670F50005ACDE /* LaunchScreen.storyboard */,
 				0A0E5D65203670F50005ACDE /* Info.plist */,
-				0A0E5D5D203670F50005ACDE /* BVS.xcdatamodeld */,
 			);
 			path = BVS;
 			sourceTree = "<group>";
@@ -97,6 +99,7 @@
 		0A0E5D72203A33470005ACDE /* DataModels */ = {
 			isa = PBXGroup;
 			children = (
+				0A0E5D5D203670F50005ACDE /* BVS.xcdatamodeld */,
 				0A0E5D6E203A2F550005ACDE /* Measurement+CoreDataClass.swift */,
 				0A0E5D6F203A2F550005ACDE /* Measurement+CoreDataProperties.swift */,
 				0A0E5D76203B57670005ACDE /* SubMeasurement+CoreDataClass.swift */,
@@ -108,10 +111,13 @@
 		0A0E5D73203A33630005ACDE /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				0A0E5D5A203670F50005ACDE /* Main.storyboard */,
 				0A0E5D58203670F50005ACDE /* BVSViewController.swift */,
 				0A0E5D74203A716A0005ACDE /* MeasurementHistoryViewController.swift */,
 				0A0E5D7A203B6C2D0005ACDE /* MeasurementDetailViewController.swift */,
 				0A0E5D7C203B6C480005ACDE /* SubMeasurementDetailViewController.swift */,
+				0A0E5D7E203FB5C20005ACDE /* MeasurementFeedbackVIewController.swift */,
+				0A0E5D80203FB5E10005ACDE /* LoginViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -188,6 +194,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A0E5D81203FB5E10005ACDE /* LoginViewController.swift in Sources */,
 				0A0E5D70203A2F550005ACDE /* Measurement+CoreDataClass.swift in Sources */,
 				0A0E5D59203670F50005ACDE /* BVSViewController.swift in Sources */,
 				0A0E5D7B203B6C2D0005ACDE /* MeasurementDetailViewController.swift in Sources */,
@@ -198,6 +205,7 @@
 				0A0E5D79203B57670005ACDE /* SubMeasurement+CoreDataProperties.swift in Sources */,
 				0A0E5D57203670F50005ACDE /* AppDelegate.swift in Sources */,
 				0A0E5D5F203670F50005ACDE /* BVS.xcdatamodeld in Sources */,
+				0A0E5D7F203FB5C20005ACDE /* MeasurementFeedbackVIewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

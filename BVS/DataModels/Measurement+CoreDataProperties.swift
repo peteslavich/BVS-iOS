@@ -2,7 +2,7 @@
 //  Measurement+CoreDataProperties.swift
 //  BVS
 //
-//  Created by Peter Slavich on 2/19/18.
+//  Created by Peter Slavich on 2/25/18.
 //  Copyright © 2018 Peter Slavich. All rights reserved.
 //
 //
@@ -20,7 +20,7 @@ extension Measurement {
     @NSManaged public var measurementOn: NSDate?
     @NSManaged public var volume: NSDecimalNumber?
     @NSManaged public var uuid: UUID?
-    @NSManaged public var patientRating: Int16
+    @NSManaged public var patientRating: NSNumber?
     @NSManaged public var patientFeedback: String?
     @NSManaged public var subMeasurements: NSSet?
 
