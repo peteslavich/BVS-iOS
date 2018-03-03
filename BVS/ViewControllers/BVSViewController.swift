@@ -54,11 +54,19 @@ class BVSViewController: UIViewController {
     
     func updateMeasurementUI() {
         if let measurement = self.lastMeasurement {
+            let measurementDate = measurement.measurementOn! as Date
             let dateFormatterGet = DateFormatter()
-            dateFormatterGet.dateFormat = "yyyy-MM-dd hh:mm:ss"
+            if Calendar.current.isDate(measurementDate, inSameDayAs:Date()) {
+                dateFormatterGet.dateFormat = "h:mm:ss a"
+                self.labelLastMeasurementTime.text = "Today, " + dateFormatterGet.string(from: measurementDate)
+
+            }
+            else
+            {
+                dateFormatterGet.dateFormat = "MM/dd/yyyy, h:mm:ss a"
+                self.labelLastMeasurement.text = String(format: "%.1f", measurement.volume!.doubleValue)
+            }
             
-            self.labelLastMeasurementTime.text = dateFormatterGet.string(from: measurement.measurementOn! as Date)
-            self.labelLastMeasurement.text = String(format: "%.1f", measurement.volume!.doubleValue)
         }
         else {
             self.labelLastMeasurementTime.text = "No Measurements Yet"
