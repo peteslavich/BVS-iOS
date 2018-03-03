@@ -14,15 +14,20 @@ class MeasurementFeedbackViewController : UIViewController {
     
     var measurement : Measurement? = nil
 
-    @IBOutlet weak var labelMeasurementDate: UILabel!
-    @IBOutlet weak var labelMeasurementVolume: UILabel!
+    @IBOutlet weak var labelMeasurementInfo: UILabel!
     @IBOutlet weak var sliderFeedbackRating: UISlider!
     @IBOutlet weak var labelFeedbackRating: UILabel!
     @IBOutlet weak var textFieldAdditionalFeedback: UITextView!
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        updateUI()
+    }
+    
     @IBAction func cancelPressed(_ sender: Any) {
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func savePressed(_ sender: Any) {
         self.measurement?.patientRating = Int(self.sliderFeedbackRating.value) as NSNumber
         self.measurement?.patientFeedback = self.textFieldAdditionalFeedback.text
@@ -38,16 +43,16 @@ class MeasurementFeedbackViewController : UIViewController {
         
         self.presentingViewController?.dismiss(animated: true, completion: nil)
     }
+    
     @IBAction func sliderValueChanged(_ sender: Any) {
         self.labelFeedbackRating.text = String(format:"%d",Int(self.sliderFeedbackRating.value))
     }
 
     func updateUI() {
         let dateFormatterGet = DateFormatter()
-        dateFormatterGet.dateFormat = "yyyy-MM-dd hh:mm:ss"
+        dateFormatterGet.dateFormat = "MM/dd/yyyy hh:mm:ss"
         
-        self.labelMeasurementDate.text = dateFormatterGet.string(from: self.measurement!.measurementOn! as Date)
-        self.labelMeasurementVolume.text = String(format: "%.1f", measurement!.volume!.doubleValue)
+        self.labelMeasurementInfo.text = String(format: "%@: %.1f", dateFormatterGet.string(from: self.measurement!.measurementOn! as Date), measurement!.volume!.doubleValue)
         
         if let rating = self.measurement?.patientRating {
             self.sliderFeedbackRating.value = Float(rating.intValue)
