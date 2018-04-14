@@ -15,9 +15,10 @@ class BVSWebService {
     
     func postMeasurement(measurement : Measurement) {
         dataTask?.cancel()
-        var url = URL(string: baseAddress)
-        url?.appendPathComponent("Measurement")
-       /* dataTask = session.dataTask(with: (url?)!) {
+        var url = URL(string: baseAddress)!
+        url.appendPathComponent("Measurement")
+       
+        dataTask = session.dataTask(with: url) {
                 data, response, error in
                 defer {
                     self.dataTask = nil
@@ -38,7 +39,7 @@ class BVSWebService {
             // 7
             dataTask?.resume()
  
- */
+ 
         }
     
 }

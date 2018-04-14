@@ -52,6 +52,10 @@ class BVSViewController: UIViewController {
         }
     }
     
+    @IBAction func debugPost(_ sender: Any) {
+        
+    }
+    
     func updateMeasurementUI() {
         if let measurement = self.lastMeasurement {
             let measurementDate = measurement.measurementOn! as Date
