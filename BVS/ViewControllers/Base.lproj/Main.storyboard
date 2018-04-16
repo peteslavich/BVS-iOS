@@ -129,20 +129,9 @@
                                     <action selector="enterFeedback:" destination="BYZ-38-t0r" eventType="touchUpInside" id="009-P8-ylK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XTW-ZF-Vnw">
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-z2-sf6">
                                 <rect key="frame" x="102" y="169" width="171" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="171" id="YZC-KG-8Hl"/>
-                                    <constraint firstAttribute="height" constant="30" id="snh-Eh-fTr"/>
-                                </constraints>
-                                <state key="normal" title="Post latest measurement"/>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-z2-sf6">
-                                <rect key="frame" x="102" y="169" width="171" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="8jy-Ns-Bjv"/>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="171" id="x4m-z4-KHW"/>
-                                </constraints>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Post latest measurement"/>
                                 <connections>
                                     <action selector="debugPost:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xV8-Hf-xDl"/>
@@ -158,10 +147,8 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jhi-mU-BhU" secondAttribute="trailing" constant="16" id="Xgd-gC-lgV"/>
                             <constraint firstItem="ekt-Lf-9J7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gV7-y8-e7J"/>
                             <constraint firstItem="MqE-rJ-rxD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="kyo-SR-uyt"/>
-                            <constraint firstItem="XTW-ZF-Vnw" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="l0D-xJ-dWS"/>
                             <constraint firstItem="MqE-rJ-rxD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ljI-l3-CRe"/>
                             <constraint firstItem="4O9-8e-rIr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sIx-4J-wSZ"/>
-                            <constraint firstItem="XTW-ZF-Vnw" firstAttribute="top" secondItem="MqE-rJ-rxD" secondAttribute="bottom" constant="35" id="um0-KR-6NX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>

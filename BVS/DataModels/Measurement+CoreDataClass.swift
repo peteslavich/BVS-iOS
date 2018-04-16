@@ -9,24 +9,31 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 @objc(Measurement)
 public class Measurement: NSManagedObject, Encodable {
 
     enum CodingKeys: String, CodingKey {
-        case measurementOn
-        case volume
-        case uuid
-        case patientRating
-        case patientFeedback
+        case measurementOn = "MeasurementOn"
+        case volume = "CalculatedVolume"
+        case uuid = "ClientGuid"
+        case patientRating = "Patient Rating"
+        case patientFeedback = "Patient Feedback"
+        case patientID = "PatientID"
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encode(measurementOn, forKey: .measurementOn)
-        try container.encode(volume, forKey: .volume)
+        try container.encode(measurementOn! as Date, forKey: .measurementOn)
+        try container.encode(volume! as Decimal, forKey: .volume)
         try container.encode(uuid, forKey: .uuid)
-        try container.encode(patientRating, forKey: .patientRating)
-        try container.encode(patientFeedback, forKey: .patientFeedback)
+        //try container.encode(patientRating as! Int?, forKey: .patientRating)
+        //try container.encode(patientFeedback, forKey: .patientFeedback)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        if let user = appDelegate.loggedInUser {
+            try container.encode(user.patientID, forKey: .patientID)
+        }
     }
 }

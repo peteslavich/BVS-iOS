@@ -52,10 +52,6 @@ class BVSViewController: UIViewController {
         }
     }
     
-    @IBAction func debugPost(_ sender: Any) {
-        
-    }
-    
     func updateMeasurementUI() {
         if let measurement = self.lastMeasurement {
             let measurementDate = measurement.measurementOn! as Date
@@ -91,6 +87,11 @@ class BVSViewController: UIViewController {
         _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(measurementFinished), userInfo: nil, repeats: false)
     }
     
+    @IBAction func debugPost(_ sender: Any) {
+        let webService = BVSWebService()
+        webService.postMeasurement(measurement: self.lastMeasurement!)
+    }
+    
     @IBAction func showHistory(_ sender: Any) {
         performSegue(withIdentifier: "ShowMeasurementHistory", sender: nil)
     }
@@ -112,6 +113,7 @@ class BVSViewController: UIViewController {
         let d = String(format:"%.1f", dd)
         let dn = NSDecimalNumber(string:d)
         measurement.volume = dn
+        measurement.uuid = UUID()
 
         for i in 0...2 {
             let subMeasurement = NSEntityDescription.insertNewObject(forEntityName: "SubMeasurement", into: context) as! SubMeasurement
