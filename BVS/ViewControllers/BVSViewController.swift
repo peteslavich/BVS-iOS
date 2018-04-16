@@ -124,6 +124,7 @@ class BVSViewController: UIViewController {
                 }
             }
             subMeasurement.volume = dn
+            subMeasurement.uuid = UUID()
             let timeInterval = TimeInterval(i)
             subMeasurement.measurementOn = ((measurement.measurementOn! as Date) - timeInterval) as NSDate
             subMeasurement.measurement = measurement

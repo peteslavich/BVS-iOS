@@ -373,4 +373,162 @@ public class SubMeasurement: NSManagedObject {
     func indexIsValid(sensor: Int, led: Int) -> Bool {
         return sensor >= 1 && sensor <= 8 && led >= 1 && led <= 8
     }
+    
+    enum CodingKeys: String, CodingKey {
+        case measurementOn = "MeasurementOn"
+        case volume = "CalculatedVolume"
+        case uuid = "ClientGuid"
+        
+        case sensor1LED1 = "Sensor1LED1"
+        case sensor1LED2 = "Sensor1LED2"
+        case sensor1LED3 = "Sensor1LED3"
+        case sensor1LED4 = "Sensor1LED4"
+        case sensor1LED5 = "Sensor1LED5"
+        case sensor1LED6 = "Sensor1LED6"
+        case sensor1LED7 = "Sensor1LED7"
+        case sensor1LED8 = "Sensor1LED8"
+        
+        case sensor2LED1 = "Sensor2LED1"
+        case sensor2LED2 = "Sensor2LED2"
+        case sensor2LED3 = "Sensor2LED3"
+        case sensor2LED4 = "Sensor2LED4"
+        case sensor2LED5 = "Sensor2LED5"
+        case sensor2LED6 = "Sensor2LED6"
+        case sensor2LED7 = "Sensor2LED7"
+        case sensor2LED8 = "Sensor2LED8"
+        
+        case sensor3LED1 = "Sensor3LED1"
+        case sensor3LED2 = "Sensor3LED2"
+        case sensor3LED3 = "Sensor3LED3"
+        case sensor3LED4 = "Sensor3LED4"
+        case sensor3LED5 = "Sensor3LED5"
+        case sensor3LED6 = "Sensor3LED6"
+        case sensor3LED7 = "Sensor3LED7"
+        case sensor3LED8 = "Sensor3LED8"
+        
+        case sensor4LED1 = "Sensor4LED1"
+        case sensor4LED2 = "Sensor4LED2"
+        case sensor4LED3 = "Sensor4LED3"
+        case sensor4LED4 = "Sensor4LED4"
+        case sensor4LED5 = "Sensor4LED5"
+        case sensor4LED6 = "Sensor4LED6"
+        case sensor4LED7 = "Sensor4LED7"
+        case sensor4LED8 = "Sensor4LED8"
+        
+        case sensor5LED1 = "Sensor5LED1"
+        case sensor5LED2 = "Sensor5LED2"
+        case sensor5LED3 = "Sensor5LED3"
+        case sensor5LED4 = "Sensor5LED4"
+        case sensor5LED5 = "Sensor5LED5"
+        case sensor5LED6 = "Sensor5LED6"
+        case sensor5LED7 = "Sensor5LED7"
+        case sensor5LED8 = "Sensor5LED8"
+        
+        case sensor6LED1 = "Sensor6LED1"
+        case sensor6LED2 = "Sensor6LED2"
+        case sensor6LED3 = "Sensor6LED3"
+        case sensor6LED4 = "Sensor6LED4"
+        case sensor6LED5 = "Sensor6LED5"
+        case sensor6LED6 = "Sensor6LED6"
+        case sensor6LED7 = "Sensor6LED7"
+        case sensor6LED8 = "Sensor6LED8"
+        
+        case sensor7LED1 = "Sensor7LED1"
+        case sensor7LED2 = "Sensor7LED2"
+        case sensor7LED3 = "Sensor7LED3"
+        case sensor7LED4 = "Sensor7LED4"
+        case sensor7LED5 = "Sensor7LED5"
+        case sensor7LED6 = "Sensor7LED6"
+        case sensor7LED7 = "Sensor7LED7"
+        case sensor7LED8 = "Sensor7LED8"
+        
+        case sensor8LED1 = "Sensor8LED1"
+        case sensor8LED2 = "Sensor8LED2"
+        case sensor8LED3 = "Sensor8LED3"
+        case sensor8LED4 = "Sensor8LED4"
+        case sensor8LED5 = "Sensor8LED5"
+        case sensor8LED6 = "Sensor8LED6"
+        case sensor8LED7 = "Sensor8LED7"
+        case sensor8LED8 = "Sensor8LED8"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(measurementOn! as Date, forKey: .measurementOn)
+        try container.encode(volume! as Decimal, forKey: .volume)
+        try container.encode(uuid, forKey: .uuid)
+
+        try container.encode(sensor1LED1! as Decimal, forKey: .sensor1LED1)
+        try container.encode(sensor1LED2! as Decimal, forKey: .sensor1LED2)
+        try container.encode(sensor1LED2! as Decimal, forKey: .sensor1LED3)
+        try container.encode(sensor1LED3! as Decimal, forKey: .sensor1LED4)
+        try container.encode(sensor1LED4! as Decimal, forKey: .sensor1LED5)
+        try container.encode(sensor1LED5! as Decimal, forKey: .sensor1LED6)
+        try container.encode(sensor1LED6! as Decimal, forKey: .sensor1LED7)
+        try container.encode(sensor1LED7! as Decimal, forKey: .sensor1LED8)
+
+        try container.encode(sensor2LED1! as Decimal, forKey: .sensor2LED1)
+        try container.encode(sensor2LED2! as Decimal, forKey: .sensor2LED2)
+        try container.encode(sensor2LED2! as Decimal, forKey: .sensor2LED3)
+        try container.encode(sensor2LED3! as Decimal, forKey: .sensor2LED4)
+        try container.encode(sensor2LED4! as Decimal, forKey: .sensor2LED5)
+        try container.encode(sensor2LED5! as Decimal, forKey: .sensor2LED6)
+        try container.encode(sensor2LED6! as Decimal, forKey: .sensor2LED7)
+        try container.encode(sensor2LED7! as Decimal, forKey: .sensor2LED8)
+        
+        
+        try container.encode(sensor3LED1! as Decimal, forKey: .sensor3LED1)
+        try container.encode(sensor3LED2! as Decimal, forKey: .sensor3LED2)
+        try container.encode(sensor3LED2! as Decimal, forKey: .sensor3LED3)
+        try container.encode(sensor3LED3! as Decimal, forKey: .sensor3LED4)
+        try container.encode(sensor3LED4! as Decimal, forKey: .sensor3LED5)
+        try container.encode(sensor3LED5! as Decimal, forKey: .sensor3LED6)
+        try container.encode(sensor3LED6! as Decimal, forKey: .sensor3LED7)
+        try container.encode(sensor3LED7! as Decimal, forKey: .sensor3LED8)
+        
+        try container.encode(sensor4LED1! as Decimal, forKey: .sensor4LED1)
+        try container.encode(sensor4LED2! as Decimal, forKey: .sensor4LED2)
+        try container.encode(sensor4LED2! as Decimal, forKey: .sensor4LED3)
+        try container.encode(sensor4LED3! as Decimal, forKey: .sensor4LED4)
+        try container.encode(sensor4LED4! as Decimal, forKey: .sensor4LED5)
+        try container.encode(sensor4LED5! as Decimal, forKey: .sensor4LED6)
+        try container.encode(sensor4LED6! as Decimal, forKey: .sensor4LED7)
+        try container.encode(sensor4LED7! as Decimal, forKey: .sensor4LED8)
+        
+        try container.encode(sensor5LED1! as Decimal, forKey: .sensor5LED1)
+        try container.encode(sensor5LED2! as Decimal, forKey: .sensor5LED2)
+        try container.encode(sensor5LED2! as Decimal, forKey: .sensor5LED3)
+        try container.encode(sensor5LED3! as Decimal, forKey: .sensor5LED4)
+        try container.encode(sensor5LED4! as Decimal, forKey: .sensor5LED5)
+        try container.encode(sensor5LED5! as Decimal, forKey: .sensor5LED6)
+        try container.encode(sensor5LED6! as Decimal, forKey: .sensor5LED7)
+        try container.encode(sensor5LED7! as Decimal, forKey: .sensor5LED8)
+        
+        try container.encode(sensor6LED1! as Decimal, forKey: .sensor6LED1)
+        try container.encode(sensor6LED2! as Decimal, forKey: .sensor6LED2)
+        try container.encode(sensor6LED2! as Decimal, forKey: .sensor6LED3)
+        try container.encode(sensor6LED3! as Decimal, forKey: .sensor6LED4)
+        try container.encode(sensor6LED4! as Decimal, forKey: .sensor6LED5)
+        try container.encode(sensor6LED5! as Decimal, forKey: .sensor6LED6)
+        try container.encode(sensor6LED6! as Decimal, forKey: .sensor6LED7)
+        try container.encode(sensor6LED7! as Decimal, forKey: .sensor6LED8)
+        
+        try container.encode(sensor7LED1! as Decimal, forKey: .sensor7LED1)
+        try container.encode(sensor7LED2! as Decimal, forKey: .sensor7LED2)
+        try container.encode(sensor7LED2! as Decimal, forKey: .sensor7LED3)
+        try container.encode(sensor7LED3! as Decimal, forKey: .sensor7LED4)
+        try container.encode(sensor7LED4! as Decimal, forKey: .sensor7LED5)
+        try container.encode(sensor7LED5! as Decimal, forKey: .sensor7LED6)
+        try container.encode(sensor7LED6! as Decimal, forKey: .sensor7LED7)
+        try container.encode(sensor7LED7! as Decimal, forKey: .sensor7LED8)
+        
+        try container.encode(sensor8LED1! as Decimal, forKey: .sensor8LED1)
+        try container.encode(sensor8LED2! as Decimal, forKey: .sensor8LED2)
+        try container.encode(sensor8LED2! as Decimal, forKey: .sensor8LED3)
+        try container.encode(sensor8LED3! as Decimal, forKey: .sensor8LED4)
+        try container.encode(sensor8LED4! as Decimal, forKey: .sensor8LED5)
+        try container.encode(sensor8LED5! as Decimal, forKey: .sensor8LED6)
+        try container.encode(sensor8LED6! as Decimal, forKey: .sensor8LED7)
+        try container.encode(sensor8LED7! as Decimal, forKey: .sensor8LED8)
+    }
 }

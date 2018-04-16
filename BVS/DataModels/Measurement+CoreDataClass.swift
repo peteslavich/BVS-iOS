@@ -18,8 +18,8 @@ public class Measurement: NSManagedObject, Encodable {
         case measurementOn = "MeasurementOn"
         case volume = "CalculatedVolume"
         case uuid = "ClientGuid"
-        case patientRating = "Patient Rating"
-        case patientFeedback = "Patient Feedback"
+        case patientRating = "PatientRating"
+        case patientFeedback = "PatientFeedback"
         case patientID = "PatientID"
     }
     
