@@ -21,13 +21,13 @@ class BVSWebService {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
        
-        var encoder = JSONEncoder()
+        let encoder = JSONEncoder()
         encoder.dateEncodingStrategy = .iso8601
         guard let uploadData = try? encoder.encode(measurement) else {
             return
         }
         
-        var s = String(data:uploadData, encoding: String.Encoding.utf8) as String!
+        let s = String(data:uploadData, encoding: String.Encoding.utf8) as String?
         print ("json data: " + s!)
 
         let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in

@@ -11,7 +11,7 @@ import Foundation
 import CoreData
 
 @objc(SubMeasurement)
-public class SubMeasurement: NSManagedObject {
+public class SubMeasurement: NSManagedObject, Encodable {
 
     subscript(sensor: Int, led: Int) -> NSDecimalNumber? {
         get {

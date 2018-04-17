@@ -21,6 +21,7 @@ public class Measurement: NSManagedObject, Encodable {
         case patientRating = "PatientRating"
         case patientFeedback = "PatientFeedback"
         case patientID = "PatientID"
+        case subMeasurements = "SubMeasurements"
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -28,6 +29,8 @@ public class Measurement: NSManagedObject, Encodable {
         try container.encode(measurementOn! as Date, forKey: .measurementOn)
         try container.encode(volume! as Decimal, forKey: .volume)
         try container.encode(uuid, forKey: .uuid)
+        
+        
         //try container.encode(patientRating as! Int?, forKey: .patientRating)
         //try container.encode(patientFeedback, forKey: .patientFeedback)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -35,5 +38,11 @@ public class Measurement: NSManagedObject, Encodable {
         if let user = appDelegate.loggedInUser {
             try container.encode(user.patientID, forKey: .patientID)
         }
+        
+        var sub = container.nestedUnkeyedContainer(forKey: .subMeasurements)
+        for s in Array(subMeasurements!) as! Array<SubMeasurement> {
+            try sub.encode(s)
+        }
+
     }
 }
