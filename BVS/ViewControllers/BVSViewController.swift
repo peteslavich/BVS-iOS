@@ -59,14 +59,12 @@ class BVSViewController: UIViewController {
             if Calendar.current.isDate(measurementDate, inSameDayAs:Date()) {
                 dateFormatterGet.dateFormat = "h:mm:ss a"
                 self.labelLastMeasurementTime.text = "Today, " + dateFormatterGet.string(from: measurementDate)
-
             }
             else
             {
                 dateFormatterGet.dateFormat = "MM/dd/yyyy, h:mm:ss a"
-                self.labelLastMeasurement.text = String(format: "%.1f", measurement.volume!.doubleValue)
             }
-            
+            self.labelLastMeasurement.text = String(format: "%.1f", measurement.volume!.doubleValue)
         }
         else {
             self.labelLastMeasurementTime.text = "No Measurements Yet"
