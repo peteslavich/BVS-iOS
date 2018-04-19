@@ -25,6 +25,7 @@
 		0A0E5D81203FB5E10005ACDE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D80203FB5E10005ACDE /* LoginViewController.swift */; };
 		0A0E5D842065E6B40005ACDE /* BVSWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D832065E6B40005ACDE /* BVSWebService.swift */; };
 		0A0E5D8620811DB60005ACDE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D8520811DB60005ACDE /* User.swift */; };
+		0A69E3BA208900B3004BC4F3 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69E3B9208900B2004BC4F3 /* BluetoothManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		0A0E5D80203FB5E10005ACDE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0A0E5D832065E6B40005ACDE /* BVSWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BVSWebService.swift; sourceTree = "<group>"; };
 		0A0E5D8520811DB60005ACDE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		0A69E3B9208900B2004BC4F3 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 				0A0E5D73203A33630005ACDE /* ViewControllers */,
 				0A0E5D72203A33470005ACDE /* DataModels */,
 				0A0E5D822065E6520005ACDE /* WebServices */,
+				0A69E397208666F2004BC4F3 /* Bluetooth */,
 				0A0E5D60203670F50005ACDE /* Assets.xcassets */,
 				0A0E5D62203670F50005ACDE /* LaunchScreen.storyboard */,
 				0A0E5D65203670F50005ACDE /* Info.plist */,
@@ -134,6 +137,14 @@
 				0A0E5D832065E6B40005ACDE /* BVSWebService.swift */,
 			);
 			path = WebServices;
+			sourceTree = "<group>";
+		};
+		0A69E397208666F2004BC4F3 /* Bluetooth */ = {
+			isa = PBXGroup;
+			children = (
+				0A69E3B9208900B2004BC4F3 /* BluetoothManager.swift */,
+			);
+			path = Bluetooth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -212,6 +223,7 @@
 				0A0E5D70203A2F550005ACDE /* Measurement+CoreDataClass.swift in Sources */,
 				0A0E5D842065E6B40005ACDE /* BVSWebService.swift in Sources */,
 				0A0E5D59203670F50005ACDE /* BVSViewController.swift in Sources */,
+				0A69E3BA208900B3004BC4F3 /* BluetoothManager.swift in Sources */,
 				0A0E5D7B203B6C2D0005ACDE /* MeasurementDetailViewController.swift in Sources */,
 				0A0E5D7D203B6C480005ACDE /* SubMeasurementDetailViewController.swift in Sources */,
 				0A0E5D8620811DB60005ACDE /* User.swift in Sources */,
