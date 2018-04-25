@@ -9,7 +9,16 @@
 import UIKit
 import CoreData
 
-class BVSViewController: UIViewController {
+class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
+    
+    func deviceDiscovered() {
+        
+    }
+    
+    func deviceConnected() {
+        
+    }
+    
 
     //MARK: Properties
     
@@ -23,6 +32,7 @@ class BVSViewController: UIViewController {
     @IBOutlet weak var labelDeviceStatus: UILabel!
     
     var lastMeasurement : Measurement? = nil
+    var bluetoothManager : BVSBluetoothManager? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +41,13 @@ class BVSViewController: UIViewController {
         self.viewContainerMeasuring.layer.cornerRadius = 5
         fetchLastMeasurement()
         updateMeasurementUI()
+        
+        setUpBluetooth()
+    }
+    
+    func setUpBluetooth() {
+        bluetoothManager = BVSBluetoothManager()
+        bluetoothManager?.delegate = self
     }
     
     func fetchLastMeasurement() {
@@ -90,6 +107,9 @@ class BVSViewController: UIViewController {
         webService.postMeasurement(measurement: self.lastMeasurement!)
     }
     
+    @IBAction func debugReadFromDevice(_ sender: Any) {
+        bluetoothManager?.readFromBladderDevice()
+    }
     @IBAction func showHistory(_ sender: Any) {
         performSegue(withIdentifier: "ShowMeasurementHistory", sender: nil)
     }
