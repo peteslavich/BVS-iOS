@@ -32,7 +32,7 @@ class SubMeasurementDetailViewController : UIViewController, UITableViewDataSour
             cell = UITableViewCell(style:.default, reuseIdentifier:"SubMeasurementReadingCell")
         }
         let sensorReading = self.subMeasurement?[indexPath.section + 1, indexPath.row + 1]
-        cell?.textLabel?.text = String(format: "Sensor %d LED %d: %.1f", indexPath.section + 1, indexPath.row + 1,sensorReading!.doubleValue)
+        cell?.textLabel?.text = String(format: "Sensor %d LED %d: %d", indexPath.section + 1, indexPath.row + 1,sensorReading!)
 
         return cell!
     }

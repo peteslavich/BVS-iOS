@@ -14,6 +14,7 @@ import CoreData
 protocol BVSBluetoothManagerDelegate {
     func deviceDiscovered()
     func deviceConnected()
+    func deviceReadData(data:Data)
 }
 
 
@@ -83,12 +84,10 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
             self.bladderVolumeService = peripheral.services![0]
             peripheral.discoverCharacteristics(nil, for:self.bladderVolumeService!)
             print("Attempting to discover characteristics...")
-
         }
         else {
             //senderrortodelegate?
             print("error discovering services")
-
         }
     }
     
@@ -99,12 +98,10 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
             self.characteristics = service.characteristics
             delegate?.deviceConnected()
             print("Characteristic discovered")
-
         }
         else {
             //senderrortodelegate
             print("error discovering characteristics")
-
         }
     }
     
@@ -112,50 +109,9 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
                     didUpdateValueFor characteristic: CBCharacteristic,
                     error: Error?) {
         if error == nil {
-            let data = characteristic.value
-            if let d = data {
-                
-                if d.count == 192 {
-                    
-                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                    let context = appDelegate.persistentContainer.viewContext
-                    let randomNumber = arc4random_uniform(3001)
-                    
-                    let measurement = NSEntityDescription.insertNewObject(forEntityName: "Measurement", into: context) as! Measurement
-                    measurement.measurementOn = Date() as NSDate
-                    let dd = 40.0 + Double(randomNumber)/100.0
-                    let de = String(format:"%.1f", dd)
-                    let dn = NSDecimalNumber(string:de)
-                    
-                    measurement.volume = dn
-                    measurement.uuid = UUID()
-                    
-                    for i in 0...2 {
-                        let subMeasurement = NSEntityDescription.insertNewObject(forEntityName: "SubMeasurement", into: context) as! SubMeasurement
-                        for j in 1...8 {
-                            for k in 1...8 {
-                                let l = 8*(j - 1) + (k - 1)
-                                let e = d.subdata(in: 3*l..<(3*l+3))
-                                let value = e.withUnsafeBytes { (ptr: UnsafePointer<UInt32>) -> UInt32 in
-                                    return ptr.pointee
-                                }
-                                print(value)
-                                subMeasurement[j,k] = value
-                            }
-                        }
-                        subMeasurement.volume = dn
-                        subMeasurement.uuid = UUID()
-                        let timeInterval = TimeInterval(i)
-                        subMeasurement.measurementOn = ((measurement.measurementOn! as Date) - timeInterval) as NSDate
-                        subMeasurement.measurement = measurement
-                        measurement.addToSubMeasurements(subMeasurement)
-                    }
-                    do {
-                        try context.save()
-                    }
-                    catch {
-                        
-                    }
+            if let data = characteristic.value {
+                if data.count == 192 {
+                    delegate?.deviceReadData(data: data)
                 }
             }
         }
