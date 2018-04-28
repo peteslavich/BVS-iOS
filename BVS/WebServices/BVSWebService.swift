@@ -40,7 +40,7 @@ class BVSWebService {
                     print ("server error")
                     return
             }
-            if let mimeType = response.mimeType,
+            if //let mimeType = response.mimeType,
                 //mimeType == "application/json",
                 let data = data,
                 let dataString = String(data: data, encoding: .utf8) {

@@ -169,6 +169,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicatorMeasuring" destination="gF4-oO-Jym" id="pfC-4g-J73"/>
+                        <outlet property="buttonReadMeasurement" destination="ipc-f1-UKQ" id="VmH-HO-X5l"/>
                         <outlet property="labelDeviceStatus" destination="mq1-5L-KyM" id="I7Y-ar-WAT"/>
                         <outlet property="labelLastMeasurement" destination="EZm-Bq-i6Z" id="qCZ-cK-ZzN"/>
                         <outlet property="labelLastMeasurementTime" destination="JQT-8s-dsQ" id="liK-Vx-Dh1"/>

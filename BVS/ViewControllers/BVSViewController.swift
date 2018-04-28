@@ -22,6 +22,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     @IBOutlet weak var activityIndicatorMeasuring: UIActivityIndicatorView!
     @IBOutlet weak var labelMeasuringStatus: UILabel!
     @IBOutlet weak var labelDeviceStatus: UILabel!
+    @IBOutlet weak var buttonReadMeasurement: UIButton!
     
     var lastMeasurement : Measurement? = nil
     var bluetoothManager : BVSBluetoothManager? = nil
@@ -34,10 +35,15 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         fetchLastMeasurement()
         updateMeasurementUI()
         
+        
         setUpBluetooth()
+
     }
     
     func setUpBluetooth() {
+        buttonReadMeasurement.isEnabled = false
+        labelDeviceStatus.text = "Disconnected - Scanning for device"
+        
         bluetoothManager = BVSBluetoothManager()
         bluetoothManager?.delegate = self
     }
@@ -100,6 +106,8 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     }
     
     @IBAction func debugReadFromDevice(_ sender: Any) {
+        buttonReadMeasurement.isEnabled = false
+
         self.viewContainerLastMeasurement.isHidden = true
         self.viewContainerMeasuring.isHidden = false
         self.activityIndicatorMeasuring.startAnimating()
@@ -171,16 +179,25 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     
     
     //MARK: BluetoothDelegate
+    
     func deviceDiscovered() {
-        
+        buttonReadMeasurement.isEnabled = false
+        labelDeviceStatus.text = "Discovered - Attempting to connect"
     }
     
     func deviceConnected() {
-        
+        buttonReadMeasurement.isEnabled = true
+        labelDeviceStatus.text = "Connected"
+    }
+    
+    func deviceDisconnected() {
+        buttonReadMeasurement.isEnabled = false
+        labelDeviceStatus.text = "Disconnected - Scanning for device"
     }
     
     func deviceReadData(data: Data) {
-        
+        buttonReadMeasurement.isEnabled = true
+
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let randomNumber = arc4random_uniform(3001)
@@ -228,6 +245,27 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         self.viewContainerMeasuring.isHidden = true
         
         self.viewContainerLastMeasurement.isHidden = false
+    }
+    
+    func errorConnecting(error:Error?) {
+        if let e = error {
+            print(e)
+        }
+        setUpBluetooth()
+    }
+    
+    func errorReading(error: Error?) {
+        if let e = error {
+            print(e)
+        }
+        
+        updateMeasurementUI()
+        
+        self.activityIndicatorMeasuring.stopAnimating()
+        self.viewContainerMeasuring.isHidden = true
+        self.viewContainerLastMeasurement.isHidden = false
+        
+        setUpBluetooth()
     }
     
 }

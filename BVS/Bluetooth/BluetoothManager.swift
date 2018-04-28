@@ -11,10 +11,24 @@ import CoreBluetooth
 import UIKit
 import CoreData
 
+enum BluetoothStatus {
+    case inactive   //not powered on
+    case poweringOn
+    case scanningForDevice
+    case attemptingToConnect //both connect and service/characteristic discovery wrapped into this
+    case connected
+    case reading
+    case disconnected //powered on, disconnected and idle
+}
+
 protocol BVSBluetoothManagerDelegate {
     func deviceDiscovered()
     func deviceConnected()
+    func deviceDisconnected()
     func deviceReadData(data:Data)
+    
+    func errorConnecting(error:Error?)
+    func errorReading(error:Error?)
 }
 
 
@@ -25,10 +39,13 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
     var peripheral : CBPeripheral? = nil
     var delegate : BVSBluetoothManagerDelegate? = nil
     var characteristics : Array<CBCharacteristic>? = nil
-    
+    var status : BluetoothStatus = .inactive
+    var timer : Timer? = nil
     
     override init() {
+        
         centralManager = CBCentralManager(delegate:nil, queue: nil)
+        status = .poweringOn
         super.init()
         
         centralManager.delegate = self
@@ -43,28 +60,61 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
         peripheral?.readValue(for: (characteristics?.first!)!)
     }
     
+//    func setUpTimer() {
+//        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkConnection), userInfo: nil, repeats: true)
+//        timer?.tolerance = TimeInterval(0.2)
+//    }
+//
+//    func invalidateTimer() {
+//        timer?.invalidate()
+//        timer = nil
+//    }
+    
+    @objc func checkConnection() {
+        if status == .connected {
+            if let p = self .peripheral {
+                if p.state != .connected {
+                    status = .disconnected
+                    //invalidateTimer()
+                    self.delegate?.deviceDisconnected()
+                }
+            }
+        }
+    }
+    
+    //MARK:CBCentralManagerDelegate
+    
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         if central.state == .poweredOn {
             print("Bluetooth powered on..")
+            status = .scanningForDevice
             scanForBladderDevice()
         }
         else {
+            status = .inactive
             print ("Bluetooth not powered on")
         }
     }
 
     func centralManager(_ central: CBCentralManager,
-                                 didDiscover peripheral: CBPeripheral,
-                                 advertisementData: [String : Any],
-                                 rssi RSSI: NSNumber) {
+                        didDiscover peripheral: CBPeripheral,
+                        advertisementData: [String : Any],
+                        rssi RSSI: NSNumber) {
         self.peripheral = peripheral
         centralManager.stopScan()
         print("Device discovered.")
         delegate?.deviceDiscovered()
         
         centralManager.connect(self.peripheral!, options:nil)
+        status = .attemptingToConnect
         print("Attempting to connect.")
-
+    }
+    
+    public func centralManager(_ central: CBCentralManager,
+                               didDisconnectPeripheral peripheral: CBPeripheral,
+                               error: Error?) {
+        self.status = .disconnected
+        self.delegate?.deviceDisconnected()
     }
     
     func centralManager(_ central: CBCentralManager,
@@ -73,9 +123,11 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
 
         peripheral.delegate = self
         peripheral.discoverServices([bladderVolumeServiceUUID])
+        status = .attemptingToConnect
         print("Attempting to discover service...")
-
     }
+    
+    //MARK:CBPeripheralDelegate
     
     func peripheral(_ peripheral: CBPeripheral,
                     didDiscoverServices error: Error?) {
@@ -84,10 +136,12 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
             self.bladderVolumeService = peripheral.services![0]
             peripheral.discoverCharacteristics(nil, for:self.bladderVolumeService!)
             print("Attempting to discover characteristics...")
+            status = .attemptingToConnect
         }
         else {
-            //senderrortodelegate?
+            delegate?.errorConnecting(error: error)
             print("error discovering services")
+            status = .disconnected
         }
     }
     
@@ -96,12 +150,16 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
                     error: Error?) {
         if service.characteristics!.count > 0 {
             self.characteristics = service.characteristics
+            self.status = .connected
+            //setUpTimer()
             delegate?.deviceConnected()
             print("Characteristic discovered")
         }
         else {
             //senderrortodelegate
             print("error discovering characteristics")
+            delegate?.errorConnecting(error: error)
+            self.status = .disconnected
         }
     }
     
@@ -114,6 +172,10 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
                     delegate?.deviceReadData(data: data)
                 }
             }
+        }
+        else {
+            delegate?.errorReading(error: error)
+            
         }
     }
 }
