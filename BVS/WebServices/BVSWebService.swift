@@ -26,8 +26,9 @@ class BVSWebService {
     
     var queue : [NSManagedObjectID]  = [NSManagedObjectID]()  //queue of model object_ids to post
     var currentObject : Measurement? = nil
-    var state : WebServiceStatus = .idle
-    
+    var state : WebServiceStatus = .disconnected
+    var reachability: Reachability?
+
 
     init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -48,8 +49,25 @@ class BVSWebService {
             name: .UIApplicationDidBecomeActive,
             object: nil)
         
+
+        self.reachability = Reachability(hostname: "google.com")
+        
+        do {
+            try self.reachability?.startNotifier()
+        }
+        catch {
+            fatalError("reachability is kaput")
+        }
+        
+
+        reachability?.whenReachable = { reachability in
+            self.networkListener(reachability)
+        }
+        reachability?.whenUnreachable = { reachability in
+            self.networkListener(reachability)
+        }
+        
         initializeQueue();
-        checkConnectivity();
     }
 
     func initializeQueue() {
@@ -140,8 +158,8 @@ class BVSWebService {
         
     }
     
-    func networkListener() {
-        let connected = true
+    func networkListener(_ r: Reachability) {
+        let connected = r.connection != .none
         if connected {
             if state == .disconnected {
                 resumeProcessing()
@@ -159,7 +177,7 @@ class BVSWebService {
     }
     
     func checkConnectivity() {
-        let connected = true
+        let connected = reachability?.connection != .none
         if connected {
             resumeProcessing();
         }
@@ -236,8 +254,10 @@ class BVSWebService {
     }
     
     @objc func applicationResumed() {
-        checkConnectivity()
-        resumeProcessing()
+        if state == .suspended {
+            checkConnectivity()
+            resumeProcessing()
+        }
     }
     
     /*
