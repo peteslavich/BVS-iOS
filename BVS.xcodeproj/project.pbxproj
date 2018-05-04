@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A08F0D4209CE1CF00E9225A /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A08F0D3209CE1CE00E9225A /* Reachability.swift */; };
 		0A0E5D57203670F50005ACDE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D56203670F50005ACDE /* AppDelegate.swift */; };
 		0A0E5D59203670F50005ACDE /* BVSViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D58203670F50005ACDE /* BVSViewController.swift */; };
 		0A0E5D5C203670F50005ACDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0A0E5D5A203670F50005ACDE /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0A08F0D3209CE1CE00E9225A /* Reachability.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Reachability.swift; sourceTree = "<group>"; };
 		0A0E5D53203670F50005ACDE /* BVS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BVS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0A0E5D56203670F50005ACDE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0A0E5D58203670F50005ACDE /* BVSViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BVSViewController.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		0A0E5D822065E6520005ACDE /* WebServices */ = {
 			isa = PBXGroup;
 			children = (
+				0A08F0D3209CE1CE00E9225A /* Reachability.swift */,
 				0A0E5D832065E6B40005ACDE /* BVSWebService.swift */,
 			);
 			path = WebServices;
@@ -233,6 +236,7 @@
 				0A0E5D79203B57670005ACDE /* SubMeasurement+CoreDataProperties.swift in Sources */,
 				0A0E5D57203670F50005ACDE /* AppDelegate.swift in Sources */,
 				0A0E5D5F203670F50005ACDE /* BVS.xcdatamodeld in Sources */,
+				0A08F0D4209CE1CF00E9225A /* Reachability.swift in Sources */,
 				0A0E5D7F203FB5C20005ACDE /* MeasurementFeedbackVIewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

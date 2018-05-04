@@ -249,21 +249,6 @@ class BVSWebService {
      
  */
     
-//    func post() {
-//        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
-//        measurementFetch.predicate = NSPredicate(format: "(serverID == nil) OR (serverID == 0)")
-//        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: true)
-//        measurementFetch.sortDescriptors = [sort]
-//        measurementFetch.fetchLimit = 1
-//        do {
-//            let measurements = try privateMOC.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]
-//            if measurements.count == 1 {
-//                postMeasurement(measurement: measurements.first!)
-//            }
-//        }
-//        catch {
-//            fatalError("Failed to fetch measurements: \(error)")
-//        }
-//    }
+
     
 }
