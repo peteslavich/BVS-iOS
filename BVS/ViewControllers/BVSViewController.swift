@@ -26,18 +26,20 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     
     var lastMeasurement : Measurement? = nil
     var bluetoothManager : BVSBluetoothManager? = nil
-    
+    var webServiceManager : BVSWebService!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.viewContainerLastMeasurement.layer.cornerRadius = 5
         self.viewContainerMeasuring.layer.cornerRadius = 5
+        
         fetchLastMeasurement()
         updateMeasurementUI()
-        
-        
         setUpBluetooth()
-
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        webServiceManager = appDelegate.webService!
     }
     
     func setUpBluetooth() {
@@ -101,8 +103,8 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     }
     
     @IBAction func debugPost(_ sender: Any) {
-        let webService = BVSWebService()
-        webService.postMeasurement(measurement: self.lastMeasurement!)
+        //let webService = BVSWebService()
+        //webService.post()
     }
     
     @IBAction func debugReadFromDevice(_ sender: Any) {
@@ -124,6 +126,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
             performSegue(withIdentifier: "ShowMeasurementFeedback", sender: nil)
         }
     }
+    
     @objc func measurementFinished() {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -155,6 +158,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         }
         do {
             try context.save()
+            webServiceManager.addObjectIDToQueue(objectID: measurement.objectID)
         }
         catch {
             
@@ -233,6 +237,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         }
         do {
             try context.save()
+            webServiceManager.addObjectIDToQueue(objectID: measurement.objectID)
         }
         catch {
             

@@ -7,48 +7,263 @@
 //
 
 import Foundation
+import CoreData
+import UIKit
+
+enum WebServiceStatus {
+    case idle
+    case processing
+    case disconnected
+    case suspended
+}
 
 class BVSWebService {
     let baseAddress = "http://bvspds.azurewebsites.net/api"
     let session = URLSession(configuration: .default)
     var dataTask : URLSessionDataTask? = URLSessionDataTask()
+    let privateMOC : NSManagedObjectContext
+    let mainMOC : NSManagedObjectContext
     
-    func postMeasurement(measurement : Measurement) {
-        var url = URL(string: baseAddress)!
-        url.appendPathComponent("Measurement")
+    var queue : [NSManagedObjectID]  = [NSManagedObjectID]()  //queue of model object_ids to post
+    var currentObject : Measurement? = nil
+    var state : WebServiceStatus = .idle
+    
+
+    init() {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        mainMOC = appDelegate.persistentContainer.viewContext
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-       
-        let encoder = JSONEncoder()
-        encoder.dateEncodingStrategy = .iso8601
-        guard let uploadData = try? encoder.encode(measurement) else {
-            return
+        privateMOC = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
+        privateMOC.parent = mainMOC
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationSuspended),
+            name: .UIApplicationDidEnterBackground,
+            object: nil)
+        
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(applicationResumed),
+            name: .UIApplicationDidBecomeActive,
+            object: nil)
+        
+        initializeQueue();
+        checkConnectivity();
+    }
+
+    func initializeQueue() {
+        //fetch all model_ids needed to post
+        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
+        measurementFetch.predicate = NSPredicate(format: "(serverID == nil) OR (serverID == 0)")
+        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: true)
+        measurementFetch.sortDescriptors = [sort]
+        
+        do {
+            let measurements = try privateMOC.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]
+            for measurement in measurements {
+                queue.append(measurement.objectID)
+            }
+        }
+        catch {
+            fatalError("Failed to fetch measurements: \(error)")
+        }
+    }
+    
+    func addObjectIDToQueue(objectID : NSManagedObjectID) {
+        queue.append(objectID)
+        if state != .disconnected && state != .suspended {
+            if state == .idle
+            {
+                state = .processing
+                processNextObject()
+            }
+        }
+    }
+    
+    func postCompleted() {
+        currentObject = nil
+        if state != .disconnected && state != .suspended{
+            if queue.count > 0 {
+                processNextObject()
+            }
+            else {
+                state = .idle
+            }
+        }
+    }
+    
+    func postCompletedWithError() {
+        currentObject = nil
+        if state != .disconnected && state != .suspended{
+            if queue.count > 0 {
+                processNextObject()
+            }
+        }
+    }
+    
+    func processNextObject() {
+        if state != .disconnected && state != .suspended{
+            if queue.count > 0 {
+                state = .processing
+                let objectID = queue.first
+                queue.removeFirst(1)
+                currentObject = privateMOC.object(with: objectID!) as? Measurement
+                postCurrentObject()
+            }
+            else {
+                state = .idle
+            }
+        }
+    }
+    
+    func resumeProcessing() {
+        if currentObject == nil {
+            if queue.count > 0 {
+                state = .processing
+                processNextObject()
+            }
+            else {
+                state = .idle
+            }
+        }
+        else {
+            //where in the process of posting were we?
+            //in all likelihoood wont reach this state
+            //object has been sent to be posted
+            //we disconnected from network
+            //then reconnected and i didnt get an error from the web service call
+            
+            
+            state = .processing
         }
         
-        let s = String(data:uploadData, encoding: String.Encoding.utf8) as String?
-        print ("json data: " + s!)
-
-        let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
-            if let error = error {
-                print ("error: \(error)")
+    }
+    
+    func networkListener() {
+        let connected = true
+        if connected {
+            if state == .disconnected {
+                resumeProcessing()
+            }
+        }
+        else {
+            if state != .disconnected && state != .suspended {
+                state = .disconnected
+            }
+        }
+    }
+    
+    func justwokeup() {
+        checkConnectivity()
+    }
+    
+    func checkConnectivity() {
+        let connected = true
+        if connected {
+            resumeProcessing();
+        }
+        else {
+            state = .disconnected
+        }
+    }
+    
+    func postCurrentObject() {
+        
+        if let measurement = currentObject {
+            var url = URL(string: baseAddress)!
+            url.appendPathComponent("Measurement")
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+           
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            guard let uploadData = try? encoder.encode(measurement) else {
                 return
             }
-            guard let response = response as? HTTPURLResponse,
-                (200...299).contains(response.statusCode) else {
-                    print ("server error")
+            
+            let s = String(data:uploadData, encoding: String.Encoding.utf8) as String?
+            print ("json data: " + s!)
+
+            let task = URLSession.shared.uploadTask(with: request, from: uploadData) { data, response, error in
+                if let error = error {
+                    print ("error: \(error)")
+                    self.postCompletedWithError()
                     return
+                }
+                guard let response = response as? HTTPURLResponse,
+                    (200...299).contains(response.statusCode) else {
+                        print ("server error")
+                        self.postCompletedWithError()
+                        return
+                }
+                if let d = data,
+                    let dataString = String(data: d, encoding: .utf8){
+                    print ("got data: \(dataString)")
+                    let intValue = d.withUnsafeBytes { (ptr: UnsafePointer<UInt32>) -> UInt32 in
+                        return ptr.pointee
+                    }
+                    
+                    measurement.serverID = Int64(intValue)
+                    do {
+                        try self.privateMOC.save()
+                        self.mainMOC.performAndWait {
+                            do {
+                                try self.mainMOC.save()
+                                self.postCompleted()
+                            }
+                            catch {
+                                fatalError("Failure to save context: \(error)")
+                            }
+                        }
+                    }
+                    catch {
+                        fatalError("Failure to save context: \(error)")
+                    }
+                }
             }
-            if //let mimeType = response.mimeType,
-                //mimeType == "application/json",
-                let data = data,
-                let dataString = String(data: data, encoding: .utf8) {
-                print ("got data: \(dataString)")
-            }
+            task.resume()
         }
-        task.resume()
+        else {
+            resumeProcessing()
+        }
+    }
+    
+    @objc func applicationSuspended() {
+        state = .suspended
+    }
+    
+    @objc func applicationResumed() {
+        checkConnectivity()
+        resumeProcessing()
+    }
+    
+    /*
  
-        }
+     make this as self contained as possible.
+     creates its own private core data context
+     pulls in some/all? unposted or updated since last being posted measurements
+     bada bing
+     
+ */
+    
+//    func post() {
+//        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
+//        measurementFetch.predicate = NSPredicate(format: "(serverID == nil) OR (serverID == 0)")
+//        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: true)
+//        measurementFetch.sortDescriptors = [sort]
+//        measurementFetch.fetchLimit = 1
+//        do {
+//            let measurements = try privateMOC.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]
+//            if measurements.count == 1 {
+//                postMeasurement(measurement: measurements.first!)
+//            }
+//        }
+//        catch {
+//            fatalError("Failed to fetch measurements: \(error)")
+//        }
+//    }
     
 }
