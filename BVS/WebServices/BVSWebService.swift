@@ -206,25 +206,26 @@ class BVSWebService {
                 if let d = data,
                     let dataString = String(data: d, encoding: .utf8){
                     print ("got data: \(dataString)")
-                    let intValue = d.withUnsafeBytes { (ptr: UnsafePointer<UInt32>) -> UInt32 in
-                        return ptr.pointee
-                    }
-                    
-                    measurement.serverID = Int64(intValue)
-                    do {
-                        try self.privateMOC.save()
-                        self.mainMOC.performAndWait {
+                    let json = try? JSONSerialization.jsonObject(with: d, options: [])
+                    if let dictionary = json as? [String: Any] {
+                        if let id = dictionary["id"] as? Int {
+                            measurement.serverID = Int64(id)
                             do {
-                                try self.mainMOC.save()
-                                self.postCompleted()
+                                try self.privateMOC.save()
+                                self.mainMOC.performAndWait {
+                                    do {
+                                        try self.mainMOC.save()
+                                        self.postCompleted()
+                                    }
+                                    catch {
+                                        fatalError("Failure to save context: \(error)")
+                                    }
+                                }
                             }
                             catch {
                                 fatalError("Failure to save context: \(error)")
                             }
                         }
-                    }
-                    catch {
-                        fatalError("Failure to save context: \(error)")
                     }
                 }
             }
