@@ -212,7 +212,7 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
                 }
             }
             if characteristic1 != nil && characteristic2 != nil && characteristic3 != nil && characteristic4 != nil && characteristic5 != nil && characteristic6 != nil && characteristic7 != nil && characteristic8 != nil {
-                self.characteristics = service.characteristics
+                self.characteristics = [characteristic1!, characteristic2!, characteristic3!, characteristic4!, characteristic5!, characteristic6!, characteristic7!, characteristic8!]
                 self.status = .connected
                 //setUpTimer()
                 delegate?.deviceConnected()
@@ -264,11 +264,13 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
                                     peripheral.setNotifyValue(false, for: characteristics![i])
                                 }
                                 var arr = [[Int32]]()
+                                for _ in 0...7 {
+                                    arr.append([Int32]())
+                                }
                                 for i in 0...7 {
                                     if let sensorRs = sensorReadings[i] {
-                                        arr[i] = [Int32]()
                                         for j in 0...7 {
-                                            arr[i][j] = Int32(sensorRs[j])
+                                            arr[i].append(Int32(sensorRs[j]))
                                         }
                                     }
                                 }

@@ -32,170 +32,170 @@ public class SubMeasurement: NSManagedObject, Encodable {
             assert(indexIsValid(sensor: sensor, led: led), "Index out of range")
             var returnValue : Int32 = 0
             
-            switch(sensor) {
+            switch(led) {
             case 1:
-                switch(led) {
+                switch(sensor) {
                 case 1:
                     returnValue = self.sensor1LED1
                 case 2:
-                    returnValue = self.sensor1LED2
+                    returnValue = self.sensor2LED1
                 case 3:
-                    returnValue = self.sensor1LED3
+                    returnValue = self.sensor3LED1
                 case 4:
-                    returnValue = self.sensor1LED4
+                    returnValue = self.sensor4LED1
                 case 5:
-                    returnValue = self.sensor1LED5
+                    returnValue = self.sensor5LED1
                 case 6:
-                    returnValue = self.sensor1LED6
+                    returnValue = self.sensor6LED1
                 case 7:
-                    returnValue = self.sensor1LED7
+                    returnValue = self.sensor7LED1
                 case 8:
-                    returnValue = self.sensor1LED8
+                    returnValue = self.sensor8LED1
                 default:
                     returnValue = 0
                 }
             case 2:
-                switch(led) {
+                switch(sensor) {
                 case 1:
-                    returnValue = self.sensor2LED1
+                    returnValue = self.sensor1LED2
                 case 2:
                     returnValue = self.sensor2LED2
                 case 3:
-                    returnValue = self.sensor2LED3
+                    returnValue = self.sensor3LED2
                 case 4:
-                    returnValue = self.sensor2LED4
+                    returnValue = self.sensor4LED2
                 case 5:
-                    returnValue = self.sensor2LED5
+                    returnValue = self.sensor5LED2
                 case 6:
-                    returnValue = self.sensor2LED6
+                    returnValue = self.sensor6LED2
                 case 7:
-                    returnValue = self.sensor2LED7
+                    returnValue = self.sensor7LED2
                 case 8:
-                    returnValue = self.sensor2LED8
+                    returnValue = self.sensor8LED2
                 default:
                     returnValue = 0
                 }
             case 3:
-                switch(led) {
+                switch(sensor) {
                 case 1:
-                    returnValue = self.sensor3LED1
+                    returnValue = self.sensor1LED3
                 case 2:
-                    returnValue = self.sensor3LED2
+                    returnValue = self.sensor2LED3
                 case 3:
                     returnValue = self.sensor3LED3
                 case 4:
-                    returnValue = self.sensor3LED4
+                    returnValue = self.sensor4LED3
                 case 5:
-                    returnValue = self.sensor3LED5
+                    returnValue = self.sensor5LED3
                 case 6:
-                    returnValue = self.sensor3LED6
+                    returnValue = self.sensor6LED3
                 case 7:
-                    returnValue = self.sensor3LED7
+                    returnValue = self.sensor7LED3
                 case 8:
-                    returnValue = self.sensor3LED8
+                    returnValue = self.sensor8LED3
                 default:
                     returnValue = 0
                 }
             case 4:
-                switch(led) {
+                switch(sensor) {
                 case 1:
-                    returnValue = self.sensor4LED1
+                    returnValue = self.sensor1LED4
                 case 2:
-                    returnValue = self.sensor4LED2
+                    returnValue = self.sensor2LED4
                 case 3:
-                    returnValue = self.sensor4LED3
+                    returnValue = self.sensor3LED4
                 case 4:
                     returnValue = self.sensor4LED4
                 case 5:
-                    returnValue = self.sensor4LED5
+                    returnValue = self.sensor5LED4
                 case 6:
-                    returnValue = self.sensor4LED6
+                    returnValue = self.sensor6LED4
                 case 7:
-                    returnValue = self.sensor4LED7
+                    returnValue = self.sensor7LED4
                 case 8:
-                    returnValue = self.sensor4LED8
+                    returnValue = self.sensor8LED4
                 default:
                     returnValue = 0
                 }
             case 5:
-                switch(led) {
+                switch(sensor) {
                 case 1:
-                    returnValue = self.sensor5LED1
+                    returnValue = self.sensor1LED5
                 case 2:
-                    returnValue = self.sensor5LED2
+                    returnValue = self.sensor2LED5
                 case 3:
-                    returnValue = self.sensor5LED3
+                    returnValue = self.sensor3LED5
                 case 4:
-                    returnValue = self.sensor5LED4
+                    returnValue = self.sensor4LED5
                 case 5:
                     returnValue = self.sensor5LED5
                 case 6:
-                    returnValue = self.sensor5LED6
+                    returnValue = self.sensor6LED5
                 case 7:
-                    returnValue = self.sensor5LED7
+                    returnValue = self.sensor7LED5
                 case 8:
-                    returnValue = self.sensor5LED8
+                    returnValue = self.sensor8LED5
                 default:
                     returnValue = 0
                 }
             case 6:
-                switch(led) {
+                switch(sensor) {
                 case 1:
-                    returnValue = self.sensor6LED1
+                    returnValue = self.sensor1LED6
                 case 2:
-                    returnValue = self.sensor6LED2
+                    returnValue = self.sensor2LED6
                 case 3:
-                    returnValue = self.sensor6LED3
+                    returnValue = self.sensor3LED6
                 case 4:
-                    returnValue = self.sensor6LED4
+                    returnValue = self.sensor4LED6
                 case 5:
-                    returnValue = self.sensor6LED5
+                    returnValue = self.sensor5LED6
                 case 6:
                     returnValue = self.sensor6LED6
                 case 7:
-                    returnValue = self.sensor6LED7
+                    returnValue = self.sensor7LED6
                 case 8:
-                    returnValue = self.sensor6LED8
+                    returnValue = self.sensor8LED6
                 default:
                     returnValue = 0
                 }
             case 7:
-                switch(led) {
+                switch(sensor) {
                 case 1:
-                    returnValue = self.sensor7LED1
+                    returnValue = self.sensor1LED7
                 case 2:
-                    returnValue = self.sensor7LED2
+                    returnValue = self.sensor2LED7
                 case 3:
-                    returnValue = self.sensor7LED3
+                    returnValue = self.sensor3LED7
                 case 4:
-                    returnValue = self.sensor7LED4
+                    returnValue = self.sensor4LED7
                 case 5:
-                    returnValue = self.sensor7LED5
+                    returnValue = self.sensor5LED7
                 case 6:
-                    returnValue = self.sensor7LED6
+                    returnValue = self.sensor6LED7
                 case 7:
                     returnValue = self.sensor7LED7
                 case 8:
-                    returnValue = self.sensor7LED8
+                    returnValue = self.sensor8LED7
                 default:
                     returnValue = 0
                 }
             case 8:
-                switch(led) {
+                switch(sensor) {
                 case 1:
-                    returnValue = self.sensor8LED1
+                    returnValue = self.sensor1LED8
                 case 2:
-                    returnValue = self.sensor8LED2
+                    returnValue = self.sensor2LED8
                 case 3:
-                    returnValue = self.sensor8LED3
+                    returnValue = self.sensor3LED8
                 case 4:
-                    returnValue = self.sensor8LED4
+                    returnValue = self.sensor4LED8
                 case 5:
-                    returnValue = self.sensor8LED5
+                    returnValue = self.sensor5LED8
                 case 6:
-                    returnValue = self.sensor8LED6
+                    returnValue = self.sensor6LED8
                 case 7:
-                    returnValue = self.sensor8LED7
+                    returnValue = self.sensor7LED8
                 case 8:
                     returnValue = self.sensor8LED8
                 default:

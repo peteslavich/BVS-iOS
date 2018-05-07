@@ -32,13 +32,13 @@ class SubMeasurementDetailViewController : UIViewController, UITableViewDataSour
             cell = UITableViewCell(style:.default, reuseIdentifier:"SubMeasurementReadingCell")
         }
         let sensorReading = self.subMeasurement?[indexPath.section + 1, indexPath.row + 1]
-        cell?.textLabel?.text = String(format: "Sensor %d LED %d: %d", indexPath.section + 1, indexPath.row + 1,sensorReading!)
+        cell?.textLabel?.text = String(format: "LED %d Sensor %d: %d", indexPath.section + 1, indexPath.row + 1,sensorReading!)
 
         return cell!
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return "Sensor \(section+1)"
+        return "LED \(section+1)"
     }
 
 }
