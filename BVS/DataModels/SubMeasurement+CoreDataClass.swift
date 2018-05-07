@@ -13,7 +13,21 @@ import CoreData
 @objc(SubMeasurement)
 public class SubMeasurement: NSManagedObject, Encodable {
 
-    subscript(sensor: Int, led: Int) -> Int32 {
+    subscript(led: Int) -> [Int32] {
+        get {
+            return [self[led,1],self[led,2],self[led,3],self[led,4],self[led,5],self[led,6],self[led,7],self[led,8]]
+        }
+        set (newValue) {
+            assert(indexIsValid(led: led), "Index out of range")
+            assert(subArrayIsValid(newValue), "Subarray is invalid.")
+
+            for i in 1...8 {
+                self[led,i] = newValue[i-1]
+            }
+        }
+    }
+    
+    subscript(led: Int, sensor: Int) -> Int32 {
         get {
             assert(indexIsValid(sensor: sensor, led: led), "Index out of range")
             var returnValue : Int32 = 0
@@ -373,7 +387,15 @@ public class SubMeasurement: NSManagedObject, Encodable {
     func indexIsValid(sensor: Int, led: Int) -> Bool {
         return sensor >= 1 && sensor <= 8 && led >= 1 && led <= 8
     }
+
+    func indexIsValid(led: Int) -> Bool {
+        return led >= 1 && led <= 8
+    }
     
+    func subArrayIsValid(_ value: [Int32]) -> Bool {
+        return value.count == 8
+    }
+            
     enum CodingKeys: String, CodingKey {
         case measurementOn = "MeasurementOn"
         case volume = "CalculatedVolume"

@@ -199,7 +199,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         labelDeviceStatus.text = "Disconnected - Scanning for device"
     }
     
-    func deviceReadData(data: Data) {
+    func deviceReadData(data: [[Int32]]) {
         buttonReadMeasurement.isEnabled = true
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -218,15 +218,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         for i in 0...2 {
             let subMeasurement = NSEntityDescription.insertNewObject(forEntityName: "SubMeasurement", into: context) as! SubMeasurement
             for j in 1...8 {
-                for k in 1...8 {
-                    let l = 8*(j - 1) + (k - 1)
-                    let e = data.subdata(in: 3*l..<(3*l+3))
-                    let value = e.withUnsafeBytes { (ptr: UnsafePointer<UInt32>) -> UInt32 in
-                        return ptr.pointee
-                    }
-                    print(value)
-                    subMeasurement[j,k] = Int32(value)
-                }
+                subMeasurement[j] = data[j-1]
             }
             subMeasurement.volume = dn
             subMeasurement.uuid = UUID()

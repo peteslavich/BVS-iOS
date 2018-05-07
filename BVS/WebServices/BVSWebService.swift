@@ -172,20 +172,6 @@ class BVSWebService {
         }
     }
     
-    func justwokeup() {
-        checkConnectivity()
-    }
-    
-    func checkConnectivity() {
-        let connected = reachability?.connection != .none
-        if connected {
-            resumeProcessing();
-        }
-        else {
-            state = .disconnected
-        }
-    }
-    
     func postCurrentObject() {
         
         if let measurement = currentObject {
@@ -251,24 +237,22 @@ class BVSWebService {
     
     @objc func applicationSuspended() {
         state = .suspended
+        reachability?.stopNotifier()
     }
     
     @objc func applicationResumed() {
         if state == .suspended {
-            checkConnectivity()
+            do {
+                state = .disconnected
+                try reachability?.startNotifier()
+            }
+            catch {
+                fatalError("reachability no go")
+            }
             resumeProcessing()
         }
     }
-    
-    /*
- 
-     make this as self contained as possible.
-     creates its own private core data context
-     pulls in some/all? unposted or updated since last being posted measurements
-     bada bing
-     
- */
-    
+
 
     
 }

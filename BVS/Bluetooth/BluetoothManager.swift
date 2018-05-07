@@ -25,7 +25,7 @@ protocol BVSBluetoothManagerDelegate {
     func deviceDiscovered()
     func deviceConnected()
     func deviceDisconnected()
-    func deviceReadData(data:Data)
+    func deviceReadData(data:[[Int32]])
     
     func errorConnecting(error:Error?)
     func errorReading(error:Error?)
@@ -34,6 +34,16 @@ protocol BVSBluetoothManagerDelegate {
 
 class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDelegate {
     let bladderVolumeServiceUUID = CBUUID(string: "00000000-7E10-41C1-B16F-4430B506CDE7")
+    
+    let led1CharacteristicUUID = CBUUID(string: "00000001-6E10-41C1-B16F-4430B506CDE7")
+    let led2CharacteristicUUID = CBUUID(string: "00000002-6E10-41C1-B16F-4430B506CDE7")
+    let led3CharacteristicUUID = CBUUID(string: "00000003-6E10-41C1-B16F-4430B506CDE7")
+    let led4CharacteristicUUID = CBUUID(string: "00000004-6E10-41C1-B16F-4430B506CDE7")
+    let led5CharacteristicUUID = CBUUID(string: "00000005-6E10-41C1-B16F-4430B506CDE7")
+    let led6CharacteristicUUID = CBUUID(string: "00000006-6E10-41C1-B16F-4430B506CDE7")
+    let led7CharacteristicUUID = CBUUID(string: "00000007-6E10-41C1-B16F-4430B506CDE7")
+    let led8CharacteristicUUID = CBUUID(string: "00000008-6E10-41C1-B16F-4430B506CDE7")
+    
     var bladderVolumeService : CBService? = nil
     let centralManager : CBCentralManager
     var peripheral : CBPeripheral? = nil
@@ -41,6 +51,8 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
     var characteristics : Array<CBCharacteristic>? = nil
     var status : BluetoothStatus = .inactive
     var timer : Timer? = nil
+    
+    var sensorReadings : [[UInt32]?] = [[UInt32]?]()
     
     override init() {
         
@@ -57,7 +69,19 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
     }
     
     func readFromBladderDevice() {
-        peripheral?.readValue(for: (characteristics?.first!)!)
+        //peripheral?.readValue(for: (characteristics?.first!)!)
+        
+        sensorReadings = [nil, nil, nil, nil, nil, nil, nil, nil]
+        
+        peripheral?.setNotifyValue(true, for: characteristics![0])
+        peripheral?.setNotifyValue(true, for: characteristics![1])
+        peripheral?.setNotifyValue(true, for: characteristics![2])
+        peripheral?.setNotifyValue(true, for: characteristics![3])
+        peripheral?.setNotifyValue(true, for: characteristics![4])
+        peripheral?.setNotifyValue(true, for: characteristics![5])
+        peripheral?.setNotifyValue(true, for: characteristics![6])
+        peripheral?.setNotifyValue(true, for: characteristics![7])
+
     }
     
 //    func setUpTimer() {
@@ -148,14 +172,61 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
     func peripheral(_ peripheral: CBPeripheral,
                     didDiscoverCharacteristicsFor service: CBService,
                     error: Error?) {
+        
+        var success = true
         if service.characteristics!.count > 0 {
-            self.characteristics = service.characteristics
-            self.status = .connected
-            //setUpTimer()
-            delegate?.deviceConnected()
-            print("Characteristic discovered")
+            
+            var characteristic1: CBCharacteristic? = nil
+            var characteristic2: CBCharacteristic? = nil
+            var characteristic3: CBCharacteristic? = nil
+            var characteristic4: CBCharacteristic? = nil
+            var characteristic5: CBCharacteristic? = nil
+            var characteristic6: CBCharacteristic? = nil
+            var characteristic7: CBCharacteristic? = nil
+            var characteristic8: CBCharacteristic? = nil
+            
+            for characteristic in service.characteristics! {
+                if characteristic.uuid == led1CharacteristicUUID {
+                    characteristic1 = characteristic
+                }
+                else if characteristic.uuid == led2CharacteristicUUID {
+                    characteristic2 = characteristic
+                }
+                else if characteristic.uuid == led3CharacteristicUUID {
+                    characteristic3 = characteristic
+                }
+                else if characteristic.uuid == led4CharacteristicUUID {
+                    characteristic4 = characteristic
+                }
+                else if characteristic.uuid == led5CharacteristicUUID {
+                    characteristic5 = characteristic
+                }
+                else if characteristic.uuid == led6CharacteristicUUID {
+                    characteristic6 = characteristic
+                }
+                else if characteristic.uuid == led7CharacteristicUUID {
+                    characteristic7 = characteristic
+                }
+                else if characteristic.uuid == led8CharacteristicUUID {
+                    characteristic8 = characteristic
+                }
+            }
+            if characteristic1 != nil && characteristic2 != nil && characteristic3 != nil && characteristic4 != nil && characteristic5 != nil && characteristic6 != nil && characteristic7 != nil && characteristic8 != nil {
+                self.characteristics = service.characteristics
+                self.status = .connected
+                //setUpTimer()
+                delegate?.deviceConnected()
+                print("Characteristic discovered")
+            }
+            else {
+                success = false
+            }
         }
         else {
+            success = false
+        }
+        
+        if !success {
             //senderrortodelegate
             print("error discovering characteristics")
             delegate?.errorConnecting(error: error)
@@ -168,14 +239,52 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
                     error: Error?) {
         if error == nil {
             if let data = characteristic.value {
-                if data.count == 192 {
-                    delegate?.deviceReadData(data: data)
+                if data.count == 24 {
+                    if let index = characteristics?.index(of: characteristic) {
+                        sensorReadings[index] = [UInt32]()
+                        for k in 0...7 {
+                            let e = data.subdata(in: 3*k..<(3*k+3))
+                            let value = e.withUnsafeBytes { (ptr: UnsafePointer<UInt32>) -> UInt32 in
+                                return ptr.pointee
+                            }
+                            print(value)
+                            sensorReadings[index]?.append(value)
+                        }
+                        if sensorReadings[index]?.count == 8 {
+                            //check if have all 8 arrays for a complete measurement
+                            var allThere = true;
+                            for a in sensorReadings {
+                                if a == nil {
+                                    allThere = false
+                                    break
+                                }
+                            }
+                            if allThere {
+                                for i in 0...7 {
+                                    peripheral.setNotifyValue(false, for: characteristics![i])
+                                }
+                                var arr = [[Int32]]()
+                                for i in 0...7 {
+                                    if let sensorRs = sensorReadings[i] {
+                                        arr[i] = [Int32]()
+                                        for j in 0...7 {
+                                            arr[i][j] = Int32(sensorRs[j])
+                                        }
+                                    }
+                                }
+                                delegate?.deviceReadData(data: arr)
+                                sensorReadings = [nil, nil, nil, nil, nil, nil, nil, nil]
+                            }
+                        }
+                        else {
+                            sensorReadings[index] = nil
+                        }
+                    }
                 }
             }
         }
         else {
             delegate?.errorReading(error: error)
-            
         }
     }
 }
