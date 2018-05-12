@@ -182,6 +182,11 @@ class BVSWebService {
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
            
+            let authString = "pete:password"
+            let authData = authString.data(using: .utf8)
+            let authValue = String(format: "Basic %@", (authData?.base64EncodedString())!)
+            request.setValue(authValue, forHTTPHeaderField: "Authorization")
+            
             let encoder = JSONEncoder()
             encoder.dateEncodingStrategy = .iso8601
             guard let uploadData = try? encoder.encode(measurement) else {
