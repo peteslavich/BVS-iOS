@@ -22,17 +22,22 @@ public class Measurement: NSManagedObject, Encodable {
         case patientFeedback = "PatientFeedback"
         case patientID = "PatientID"
         case subMeasurements = "SubMeasurements"
+        case serverID = "ID"
     }
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        if (self.serverID > 0) {
+            try container.encode(serverID as Int64, forKey: .serverID)
+        }
         try container.encode(measurementOn! as Date, forKey: .measurementOn)
         try container.encode(volume! as Decimal, forKey: .volume)
         try container.encode(uuid, forKey: .uuid)
         
         
-        //try container.encode(patientRating as! Int?, forKey: .patientRating)
-        //try container.encode(patientFeedback, forKey: .patientFeedback)
+        try container.encode(patientRating as! Int?, forKey: .patientRating)
+        try container.encode(patientFeedback, forKey: .patientFeedback)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
         if let user = appDelegate.loggedInUser {

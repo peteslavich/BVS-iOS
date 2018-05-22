@@ -73,7 +73,7 @@ class BVSWebService {
     func initializeQueue() {
         //fetch all model_ids needed to post
         let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
-        measurementFetch.predicate = NSPredicate(format: "(serverID == nil) OR (serverID == 0)")
+        measurementFetch.predicate = NSPredicate(format: "(serverID == nil) OR (serverID == 0) OR (updatedOn != nil)")
         let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: true)
         measurementFetch.sortDescriptors = [sort]
         
@@ -267,8 +267,19 @@ class BVSWebService {
                     print ("got data: \(dataString)")
                     let json = try? JSONSerialization.jsonObject(with: d, options: [])
                     if let dictionary = json as? [String: Any] {
-                        if let id = dictionary["id"] as? Int {
-                            measurement.serverID = Int64(id)
+                        var shouldSave = false
+                        if measurement.serverID > 0 {
+                            measurement.updatedOn = nil
+                            shouldSave = true
+                        }
+                        else {
+                            if let id = dictionary["id"] as? Int {
+                                measurement.serverID = Int64(id)
+                                measurement.updatedOn = nil
+                                shouldSave = true
+                            }
+                        }
+                        if shouldSave {
                             do {
                                 try self.privateMOC.save()
                                 self.mainMOC.performAndWait {

@@ -13,6 +13,7 @@ import CoreData
 class MeasurementFeedbackViewController : UIViewController {
     
     var measurement : Measurement? = nil
+    var webServiceManager : BVSWebService!
 
     @IBOutlet weak var labelMeasurementInfo: UILabel!
     @IBOutlet weak var sliderFeedbackRating: UISlider!
@@ -21,6 +22,8 @@ class MeasurementFeedbackViewController : UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        webServiceManager = appDelegate.webService!
         updateUI()
     }
     
@@ -31,11 +34,12 @@ class MeasurementFeedbackViewController : UIViewController {
     @IBAction func savePressed(_ sender: Any) {
         self.measurement?.patientRating = Int(self.sliderFeedbackRating.value) as NSNumber
         self.measurement?.patientFeedback = self.textFieldAdditionalFeedback.text
-        
+        self.measurement?.updatedOn = NSDate()
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         do {
             try context.save()
+            webServiceManager.addObjectIDToQueue(objectID: (measurement?.objectID)!)
         }
         catch {
             
