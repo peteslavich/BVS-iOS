@@ -171,6 +171,60 @@ class BVSWebService {
             }
         }
     }
+//
+//    func login() {
+//        var url = URL(string: baseAddress)!
+//        url.appendPathComponent("Patient/Login")
+//
+//        var request = URLRequest(url: url)
+//        request.httpMethod = "GET"
+//        //request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+//
+//        let authString = "pete:password"
+//        let authData = authString.data(using: .utf8)
+//        let authValue = String(format: "Basic %@", (authData?.base64EncodedString())!)
+//        request.setValue(authValue, forHTTPHeaderField: "Authorization")
+//
+//        let task = URLSession.shared.downloadTask(with: request, completionHandler: <#T##(URL?, URLResponse?, Error?) -> Void#>)(with: request, from: uploadData) { data, response, error in
+//            if let error = error {
+//                print ("error: \(error)")
+//                self.postCompletedWithError()
+//                return
+//            }
+//            guard let response = response as? HTTPURLResponse,
+//                (200...299).contains(response.statusCode) else {
+//                    print ("server error")
+//                    self.postCompletedWithError()
+//                    return
+//            }
+//            if let d = data,
+//                let dataString = String(data: d, encoding: .utf8){
+//                print ("got data: \(dataString)")
+//                let json = try? JSONSerialization.jsonObject(with: d, options: [])
+//                if let dictionary = json as? [String: Any] {
+//                    if let id = dictionary["id"] as? Int {
+//                        measurement.serverID = Int64(id)
+//                        do {
+//                            try self.privateMOC.save()
+//                            self.mainMOC.performAndWait {
+//                                do {
+//                                    try self.mainMOC.save()
+//                                    self.postCompleted()
+//                                }
+//                                catch {
+//                                    fatalError("Failure to save context: \(error)")
+//                                }
+//                            }
+//                        }
+//                        catch {
+//                            fatalError("Failure to save context: \(error)")
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//        task.resume()
+//    }
     
     func postCurrentObject() {
         
