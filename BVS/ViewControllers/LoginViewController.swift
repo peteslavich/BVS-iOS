@@ -10,7 +10,24 @@ import Foundation
 import UIKit
 import CoreData
 
-class LoginViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LoginViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, LoginDelegate {
+    
+    @IBOutlet weak var textFieldUsername: UITextField!
+    @IBOutlet weak var textFieldPassword: UITextField!
+
+    func loginSuccessful() {
+        presentingViewController?.dismiss(animated: true, completion: nil)
+    }
+    
+    func loginFailed(message: String) {
+        let alert = UIAlertController(title:"Login Failed?", message: message, preferredStyle: .alert)
+        present(alert,animated: true, completion: nil)
+    }
+    
+    @IBAction func loginPressed(_ sender: Any) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.webService?.login(username: textFieldUsername.text!, password: textFieldPassword.text!, loginDelegate: self)
+    }
     
     @IBAction func cancelPressed(_ sender: Any) {
         presentingViewController?.dismiss(animated: true, completion: nil)

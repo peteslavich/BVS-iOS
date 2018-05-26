@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "124"
             endingLineNumber = "124"
-            landmarkName = "processNextObject()"
+            landmarkName = "postCompletedWithError()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
