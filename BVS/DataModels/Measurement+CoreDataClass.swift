@@ -40,7 +40,7 @@ public class Measurement: NSManagedObject, Encodable {
         try container.encode(patientFeedback, forKey: .patientFeedback)
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
 
-        if let user = appDelegate.loggedInUser {
+        if let user = appDelegate.webService!.loggedInUser {
             try container.encode(user.patientID, forKey: .patientID)
         }
         

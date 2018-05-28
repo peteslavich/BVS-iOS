@@ -32,9 +32,14 @@ class BVSWebService {
     
     var queue : [NSManagedObjectID]  = [NSManagedObjectID]()  //queue of model object_ids to post
     var currentObject : Measurement? = nil
-    var state : WebServiceStatus = .disconnected
+    var state : WebServiceStatus = .signedOut
     var reachability: Reachability?
 
+    var loggedInUser: User? = nil
+    
+    var isUserLoggedIn : Bool {
+        return loggedInUser != nil
+    }
 
     init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
@@ -96,7 +101,7 @@ class BVSWebService {
     
     func addObjectIDToQueue(objectID : NSManagedObjectID) {
         queue.append(objectID)
-        if state != .disconnected && state != .suspended {
+        if state != .signedOut && state != .disconnected && state != .suspended {
             if state == .idle
             {
                 state = .processing
@@ -107,7 +112,7 @@ class BVSWebService {
     
     func postCompleted() {
         currentObject = nil
-        if state != .disconnected && state != .suspended{
+        if state != .signedOut && state != .disconnected && state != .suspended{
             if queue.count > 0 {
                 processNextObject()
             }
@@ -119,7 +124,7 @@ class BVSWebService {
     
     func postCompletedWithError() {
         currentObject = nil
-        if state != .disconnected && state != .suspended{
+        if state != .signedOut && state != .disconnected && state != .suspended{
             if queue.count > 0 {
                 processNextObject()
             }
@@ -127,7 +132,7 @@ class BVSWebService {
     }
     
     func processNextObject() {
-        if state != .disconnected && state != .suspended{
+        if state != .signedOut && state != .disconnected && state != .suspended{
             if queue.count > 0 {
                 state = .processing
                 let objectID = queue.first
@@ -172,7 +177,7 @@ class BVSWebService {
             }
         }
         else {
-            if state != .disconnected && state != .suspended {
+            if state != .signedOut && state != .disconnected && state != .suspended {
                 state = .disconnected
             }
         }
@@ -206,8 +211,7 @@ class BVSWebService {
                         let json = try? JSONSerialization.jsonObject(with: d, options: [])
                         if let dictionary = json as? [String: Any] {
                             if let id = dictionary["patientID"] as? Int {
-                                let appDelegate = UIApplication.shared.delegate as! AppDelegate
-                                appDelegate.loggedInUser = User(emailAddress: username, password: password, patientID: id)
+                                self.loggedInUser = User(emailAddress: username, password: password, patientID: id)
                             }
                         }
                     }
@@ -228,11 +232,8 @@ class BVSWebService {
     }
     
     func postCurrentObject() {
-        
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
         if let measurement = currentObject,
-           let user = appDelegate.loggedInUser {
+           let user = loggedInUser {
             var url = URL(string: baseAddress)!
             url.appendPathComponent("Measurement")
             

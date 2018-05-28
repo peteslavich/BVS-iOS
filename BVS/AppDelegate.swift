@@ -14,16 +14,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    var loggedInUser: User? = nil
     var webService : BVSWebService? = nil
 
-    var isUserLoggedIn : Bool {
-        return loggedInUser != nil
-    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        loggedInUser = User(emailAddress: "testpatient@fake.net", password: "12345678", patientID: 2)
         webService = BVSWebService()
-
         return true
     }
 
