@@ -205,7 +205,7 @@ class BVSWebService {
                         
                         let json = try? JSONSerialization.jsonObject(with: d, options: [])
                         if let dictionary = json as? [String: Any] {
-                            if let id = dictionary["id"] as? Int {
+                            if let id = dictionary["patientID"] as? Int {
                                 let appDelegate = UIApplication.shared.delegate as! AppDelegate
                                 appDelegate.loggedInUser = User(emailAddress: username, password: password, patientID: id)
                             }
@@ -229,15 +229,18 @@ class BVSWebService {
     
     func postCurrentObject() {
         
-        if let measurement = currentObject {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
+        if let measurement = currentObject,
+           let user = appDelegate.loggedInUser {
             var url = URL(string: baseAddress)!
             url.appendPathComponent("Measurement")
             
             var request = URLRequest(url: url)
             request.httpMethod = "POST"
             request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-           
-            let authString = "pete:password"
+
+            let authString = "\(user.emailAddress):\(user.password)"
             let authData = authString.data(using: .utf8)
             let authValue = String(format: "Basic %@", (authData?.base64EncodedString())!)
             request.setValue(authValue, forHTTPHeaderField: "Authorization")

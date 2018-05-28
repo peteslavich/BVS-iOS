@@ -20,13 +20,16 @@ class LoginViewController : UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func loginFailed(message: String) {
-        let alert = UIAlertController(title:"Login Failed?", message: message, preferredStyle: .alert)
+        let alert = UIAlertController(title:"Login Failed", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
         present(alert,animated: true, completion: nil)
     }
     
     @IBAction func loginPressed(_ sender: Any) {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.webService?.login(username: textFieldUsername.text!, password: textFieldPassword.text!, loginDelegate: self)
+        //appDelegate.webService?.login(username: textFieldUsername.text!, password: textFieldPassword.text!, loginDelegate: self)
+        appDelegate.webService?.login(username: "testpatient@fake.net", password: "12345678", loginDelegate: self)
     }
     
     @IBAction func cancelPressed(_ sender: Any) {
