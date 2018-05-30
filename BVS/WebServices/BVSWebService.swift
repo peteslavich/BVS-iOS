@@ -62,14 +62,6 @@ class BVSWebService {
         
 
         self.reachability = Reachability(hostname: "google.com")
-        
-        do {
-            try self.reachability?.startNotifier()
-        }
-        catch {
-            fatalError("reachability is kaput")
-        }
-        
 
         reachability?.whenReachable = { reachability in
             self.networkListener(reachability)
@@ -77,6 +69,17 @@ class BVSWebService {
         reachability?.whenUnreachable = { reachability in
             self.networkListener(reachability)
         }
+
+//        var didFindCredentials = false
+//        if didFindCredentials {
+//            loggedInUser = ...
+//            do {
+//                try self.reachability?.startNotifier()
+//            }
+//            catch {
+//                fatalError("reachability is kaput")
+//            }
+//        }
         
         initializeQueue();
     }
@@ -204,6 +207,7 @@ class BVSWebService {
             
             if let response = response as? HTTPURLResponse {
                 if (200...299).contains(response.statusCode) {
+                    var success = false
                     if let d = data,
                        let dataString = String(data: d, encoding: .utf8) {
                         print ("got data: \(dataString)")
@@ -212,8 +216,22 @@ class BVSWebService {
                         if let dictionary = json as? [String: Any] {
                             if let id = dictionary["patientID"] as? Int {
                                 self.loggedInUser = User(emailAddress: username, password: password, patientID: id)
+                                
+                                self.state = .disconnected
+                                loginDelegate.loginSuccessful()
+                                success = true
+                                //store encrypted credentials
+                                do {
+                                    try self.reachability?.startNotifier()
+                                }
+                                catch {
+                                    fatalError("reachability no go")
+                                }
                             }
                         }
+                    }
+                    if !success {
+                        loginDelegate.loginFailed(message: "Invalid response from server.")
                     }
                 }
                 else if response.statusCode == 401 {
@@ -229,6 +247,12 @@ class BVSWebService {
         }
             
         task.resume()
+    }
+    
+    func logout() {
+        loggedInUser = nil
+        state = .signedOut
+        reachability?.stopNotifier()
     }
     
     func postCurrentObject() {
@@ -312,8 +336,10 @@ class BVSWebService {
     }
     
     @objc func applicationSuspended() {
-        state = .suspended
-        reachability?.stopNotifier()
+        if state != .signedOut {
+            state = .suspended
+            reachability?.stopNotifier()
+        }
     }
     
     @objc func applicationResumed() {
