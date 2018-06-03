@@ -32,9 +32,9 @@ class MeasurementHistoryViewController : UIViewController, UITableViewDataSource
         }
         let measurement = measurements[indexPath.row]
         cell?.textLabel?.text = String(format: "%.1f", measurement.volume!.doubleValue)
-        if measurement.serverID > 0 {
-            cell?.textLabel?.text?.append(String(format: " (ServerID: %d)", measurement.serverID))
-        }
+//        if measurement.serverID > 0 {
+//            cell?.textLabel?.text?.append(String(format: " (ServerID: %d)", measurement.serverID))
+//        }
         
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd hh:mm:ss"

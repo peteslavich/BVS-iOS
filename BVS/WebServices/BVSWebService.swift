@@ -256,9 +256,10 @@ class BVSWebService {
                                 self.loggedInUser = User(emailAddress: username, password: password, patientID: id)
                                 
                                 self.state = .disconnected
-                                loginDelegate.loginSuccessful()
                                 success = true
-                                
+                                DispatchQueue.main.async() {
+                                    loginDelegate.loginSuccessful()
+                                }
                                 //store encrypted credentials
                                 do {
                                     // This is a new account, create a new keychain item with the account name.
@@ -290,18 +291,23 @@ class BVSWebService {
                         }
                     }
                     if !success {
-                        loginDelegate.loginFailed(message: "Invalid response from server.")
+                        DispatchQueue.main.async() {
+                            loginDelegate.loginFailed(message: "Invalid response from server.")}
                     }
                 }
                 else if response.statusCode == 401 {
-                    loginDelegate.loginFailed(message: "Invalid username/password")
+                    DispatchQueue.main.async() {
+
+                        loginDelegate.loginFailed(message: "Invalid username/password")}
                 }
                 else {
-                    loginDelegate.loginFailed(message: "Server Error: \(response.statusCode)")
+                    DispatchQueue.main.async() {
+                        loginDelegate.loginFailed(message: "Server Error: \(response.statusCode)")}
                 }
             }
             else {
-                loginDelegate.loginFailed(message: "Unknown Server Error")
+                DispatchQueue.main.async() {
+                    loginDelegate.loginFailed(message: "Unknown Server Error")}
             }
         }
             

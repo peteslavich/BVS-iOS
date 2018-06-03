@@ -23,6 +23,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     @IBOutlet weak var labelMeasuringStatus: UILabel!
     @IBOutlet weak var labelDeviceStatus: UILabel!
     @IBOutlet weak var buttonReadMeasurement: UIButton!
+
     
     var lastMeasurement : Measurement? = nil
     var bluetoothManager : BVSBluetoothManager? = nil
@@ -123,7 +124,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     
     @IBAction func profilePressed(_ sender: Any) {
         if webServiceManager.isUserLoggedIn {
-            let alert = UIAlertController(title:"Log Out?", message: "Are you sure you want to log out?", preferredStyle: .alert)
+            let alert = UIAlertController(title:"Log Out?", message: "Are you sure you want to log out? You are currently logged in as \(webServiceManager.loggedInUser!.emailAddress)", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: {_ in
                 self.webServiceManager.logout()
                 self.performSegue(withIdentifier: "ShowLogin", sender: nil)
