@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ekt-Lf-9J7">
-                                <rect key="frame" x="67" y="270.66666666666669" width="240" height="271.00000000000006"/>
+                                <rect key="frame" x="67" y="217.66666666666663" width="240" height="271"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Af-UG-Mm8">
-                                        <rect key="frame" x="8" y="233" width="224" height="37"/>
+                                        <rect key="frame" x="8" y="233.00000000000003" width="224" height="36.999999999999972"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="G6m-K2-4dV"/>
                                         </constraints>
@@ -31,7 +31,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="gF4-oO-Jym">
-                                        <rect key="frame" x="90" y="106" width="60" height="60"/>
+                                        <rect key="frame" x="90" y="106.00000000000003" width="60" height="60"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="60" id="YdI-gg-wdK"/>
                                             <constraint firstAttribute="width" constant="60" id="fMR-1L-pE2"/>
@@ -51,7 +51,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4O9-8e-rIr">
-                                <rect key="frame" x="67" y="270.66666666666669" width="240" height="271.00000000000006"/>
+                                <rect key="frame" x="67" y="217.66666666666663" width="240" height="271"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Measurement:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hFU-cJ-pL6">
                                         <rect key="frame" x="29" y="18" width="182.66666666666666" height="21"/>
@@ -72,7 +72,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today, 11:54 AM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JQT-8s-dsQ">
-                                        <rect key="frame" x="8" y="233" width="224" height="37"/>
+                                        <rect key="frame" x="8" y="233.00000000000003" width="224" height="36.999999999999972"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="37" id="RpM-qN-m6X"/>
                                         </constraints>
@@ -111,7 +111,7 @@
                                     <constraint firstAttribute="height" constant="56" id="NKT-Fq-isl"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqE-rJ-rxD">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MqE-rJ-rxD">
                                 <rect key="frame" x="109" y="104" width="157" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="KVL-Vx-zfa"/>
@@ -123,13 +123,13 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xb2-SS-0n1">
-                                <rect key="frame" x="327" y="515" width="22" height="22"/>
+                                <rect key="frame" x="327" y="462" width="22" height="22"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="enterFeedback:" destination="BYZ-38-t0r" eventType="touchUpInside" id="009-P8-ylK"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-z2-sf6">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-z2-sf6">
                                 <rect key="frame" x="102" y="148" width="171" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Post latest measurement"/>
@@ -138,8 +138,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-f1-UKQ">
-                                <rect key="frame" x="127" y="194" width="120" height="30"/>
+                                <rect key="frame" x="68" y="592" width="239" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <state key="normal" title="Read from device"/>
                                 <connections>
                                     <action selector="debugReadFromDevice:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0gL-5I-7Jl"/>
@@ -150,10 +151,10 @@
                         <constraints>
                             <constraint firstItem="ekt-Lf-9J7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="GZJ-g2-dEw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jhi-mU-BhU" secondAttribute="bottom" constant="20" id="L6M-7W-WoP"/>
-                            <constraint firstItem="4O9-8e-rIr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="OBb-NB-Sfd"/>
+                            <constraint firstItem="4O9-8e-rIr" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-52.833333333333371" id="OBb-NB-Sfd"/>
                             <constraint firstItem="jhi-mU-BhU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Qek-fa-gf1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jhi-mU-BhU" secondAttribute="trailing" constant="16" id="Xgd-gC-lgV"/>
-                            <constraint firstItem="ekt-Lf-9J7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="gV7-y8-e7J"/>
+                            <constraint firstItem="ekt-Lf-9J7" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-52.833333333333371" id="gV7-y8-e7J"/>
                             <constraint firstItem="MqE-rJ-rxD" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="16" id="kyo-SR-uyt"/>
                             <constraint firstItem="MqE-rJ-rxD" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="ljI-l3-CRe"/>
                             <constraint firstItem="4O9-8e-rIr" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="sIx-4J-wSZ"/>
