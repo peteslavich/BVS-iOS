@@ -83,16 +83,7 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
         peripheral?.setNotifyValue(true, for: characteristics![7])
 
     }
-    
-//    func setUpTimer() {
-//        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(checkConnection), userInfo: nil, repeats: true)
-//        timer?.tolerance = TimeInterval(0.2)
-//    }
-//
-//    func invalidateTimer() {
-//        timer?.invalidate()
-//        timer = nil
-//    }
+
     
     @objc func checkConnection() {
         if status == .connected {
@@ -139,6 +130,8 @@ class BVSBluetoothManager : NSObject, CBCentralManagerDelegate, CBPeripheralDele
                                error: Error?) {
         self.status = .disconnected
         self.delegate?.deviceDisconnected()
+        
+        scanForBladderDevice()
     }
     
     func centralManager(_ central: CBCentralManager,
