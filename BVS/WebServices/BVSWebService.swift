@@ -23,6 +23,12 @@ protocol LoginDelegate {
     func loginFailed(message:String)
 }
 
+struct KeychainConfiguration {
+    static let servicePassword = "BVSLogin"
+    static let servicePatientID = "BVSPatientID"
+    static let accessGroup: String? = nil
+}
+
 class BVSWebService {
     let baseAddress = "http://bvspds.azurewebsites.net/api"
     let session = URLSession(configuration: .default)
@@ -70,16 +76,48 @@ class BVSWebService {
             self.networkListener(reachability)
         }
 
-//        var didFindCredentials = false
-//        if didFindCredentials {
-//            loggedInUser = ...
-//            do {
-//                try self.reachability?.startNotifier()
-//            }
-//            catch {
-//                fatalError("reachability is kaput")
-//            }
-//        }
+        var didFindCredentials = false
+        
+        //look for credentials
+        do {
+            let passwordKeychainItems = try KeychainPasswordItem.passwordItems(forService: KeychainConfiguration.servicePassword)
+            let patientIDKeychainItems = try KeychainPasswordItem.passwordItems(forService: KeychainConfiguration.servicePatientID
+            )
+            if passwordKeychainItems.count > 0 && patientIDKeychainItems.count > 0 {
+                if let passwordKeyChainItem = passwordKeychainItems.first,
+                   let patientIDKeyChainItem = patientIDKeychainItems.first {
+                    let user = passwordKeyChainItem.account
+                    do {
+                        let password = try passwordKeyChainItem.readPassword()
+                        let patientIDz = Int(try patientIDKeyChainItem.readPassword())
+                        if let patientID = patientIDz {
+                            loggedInUser = User(emailAddress: user, password: password, patientID: patientID)
+                            didFindCredentials = true
+                        }
+                    }
+                    catch {
+                        do {
+                            try passwordKeyChainItem.deleteItem()
+                        }
+                        catch {
+                            fatalError("Undeletable keychainitem")
+                        }
+                    }
+                }
+            }
+        }
+        catch {
+            
+        }
+        if didFindCredentials {
+            state = .disconnected
+            do {
+                try self.reachability?.startNotifier()
+            }
+            catch {
+                fatalError("reachability is kaput")
+            }
+        }
         
         initializeQueue();
     }
@@ -220,7 +258,28 @@ class BVSWebService {
                                 self.state = .disconnected
                                 loginDelegate.loginSuccessful()
                                 success = true
+                                
                                 //store encrypted credentials
+                                do {
+                                    // This is a new account, create a new keychain item with the account name.
+                                    let passwordItem = KeychainPasswordItem(service: KeychainConfiguration.servicePassword,
+                                                                            account: username,
+                                                                            accessGroup: KeychainConfiguration.accessGroup)
+                                    
+                                    // Save the password for the new item.
+                                    try passwordItem.savePassword(password)
+                                    
+                                    let patientIDItem = KeychainPasswordItem(service: KeychainConfiguration.servicePatientID,
+                                                                             account: username,
+                                                                             accessGroup: KeychainConfiguration.accessGroup)
+                                    
+                                    // Save the password for the new item.
+                                    try patientIDItem.savePassword(String(id))
+                                }
+                                catch {
+                                    fatalError("Error updating keychain - \(error)")
+                                }
+                                
                                 do {
                                     try self.reachability?.startNotifier()
                                 }
@@ -253,6 +312,36 @@ class BVSWebService {
         loggedInUser = nil
         state = .signedOut
         reachability?.stopNotifier()
+        
+        //remove cached credentials
+        do {
+            let passwordKeychainItems = try KeychainPasswordItem.passwordItems(forService: KeychainConfiguration.servicePassword)
+            let patientIDKeychainItems = try KeychainPasswordItem.passwordItems(forService: KeychainConfiguration.servicePatientID)
+            
+            if passwordKeychainItems.count > 0 {
+                for passwordKeyChainItem in passwordKeychainItems {
+                    do {
+                        try passwordKeyChainItem.deleteItem()
+                    }
+                    catch {
+                        fatalError("Undeletable keychainitem")
+                    }
+                }
+            }
+            if patientIDKeychainItems.count > 0 {
+                for patientIDKeychainItem in patientIDKeychainItems {
+                    do {
+                        try patientIDKeychainItem.deleteItem()
+                    }
+                    catch {
+                        fatalError("Undeletable keychainitem")
+                    }
+                }
+            }
+        }
+        catch {
+            
+        }
     }
     
     func postCurrentObject() {

@@ -125,7 +125,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         if webServiceManager.isUserLoggedIn {
             let alert = UIAlertController(title:"Log Out?", message: "Are you sure you want to log out?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: {_ in
-                self.webServiceManager.loggedInUser = nil
+                self.webServiceManager.logout()
                 self.performSegue(withIdentifier: "ShowLogin", sender: nil)
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))

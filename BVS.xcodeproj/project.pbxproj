@@ -27,6 +27,7 @@
 		0A0E5D842065E6B40005ACDE /* BVSWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D832065E6B40005ACDE /* BVSWebService.swift */; };
 		0A0E5D8620811DB60005ACDE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D8520811DB60005ACDE /* User.swift */; };
 		0A69E3BA208900B3004BC4F3 /* BluetoothManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A69E3B9208900B2004BC4F3 /* BluetoothManager.swift */; };
+		0AB3447820BF4303006BBB42 /* KeychainPasswordItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AB3447720BF4303006BBB42 /* KeychainPasswordItem.swift */; };
 		0AF5739820A795AA00BB6FD5 /* user-icon@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0AF5739720A795AA00BB6FD5 /* user-icon@3x.png */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +54,7 @@
 		0A0E5D832065E6B40005ACDE /* BVSWebService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BVSWebService.swift; sourceTree = "<group>"; };
 		0A0E5D8520811DB60005ACDE /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0A69E3B9208900B2004BC4F3 /* BluetoothManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BluetoothManager.swift; sourceTree = "<group>"; };
+		0AB3447720BF4303006BBB42 /* KeychainPasswordItem.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPasswordItem.swift; sourceTree = "<group>"; };
 		0AF5739720A795AA00BB6FD5 /* user-icon@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user-icon@3x.png"; path = "Assets.xcassets/user-icon@3x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -139,6 +141,7 @@
 		0A0E5D822065E6520005ACDE /* WebServices */ = {
 			isa = PBXGroup;
 			children = (
+				0AB3447720BF4303006BBB42 /* KeychainPasswordItem.swift */,
 				0A08F0D3209CE1CE00E9225A /* Reachability.swift */,
 				0A0E5D832065E6B40005ACDE /* BVSWebService.swift */,
 			);
@@ -233,6 +236,7 @@
 				0A69E3BA208900B3004BC4F3 /* BluetoothManager.swift in Sources */,
 				0A0E5D7B203B6C2D0005ACDE /* MeasurementDetailViewController.swift in Sources */,
 				0A0E5D7D203B6C480005ACDE /* SubMeasurementDetailViewController.swift in Sources */,
+				0AB3447820BF4303006BBB42 /* KeychainPasswordItem.swift in Sources */,
 				0A0E5D8620811DB60005ACDE /* User.swift in Sources */,
 				0A0E5D75203A716A0005ACDE /* MeasurementHistoryViewController.swift in Sources */,
 				0A0E5D78203B57670005ACDE /* SubMeasurement+CoreDataClass.swift in Sources */,

@@ -35,6 +35,7 @@ class LoginViewController : UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func cancelPressed(_ sender: Any) {
         presentingViewController?.dismiss(animated: true, completion: nil)
     }
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
