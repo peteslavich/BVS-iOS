@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14133" systemVersion="17E199" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17E202" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Measurement" representedClassName="Measurement" syncable="YES">
+        <attribute name="isRatingThumbsDown" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isRatingThumbsUp" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="measurementOn" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="patientFeedback" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="patientRating" optional="YES" attributeType="Integer 16" usesScalarValueType="NO" syncable="YES"/>
@@ -81,7 +83,7 @@
         <relationship name="measurement" maxCount="1" deletionRule="Nullify" destinationEntity="Measurement" inverseName="subMeasurements" inverseEntity="Measurement" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Measurement" positionX="-63" positionY="-18" width="128" height="165"/>
+        <element name="Measurement" positionX="-63" positionY="-18" width="128" height="195"/>
         <element name="SubMeasurement" positionX="-54" positionY="27" width="128" height="1065"/>
     </elements>
 </model>

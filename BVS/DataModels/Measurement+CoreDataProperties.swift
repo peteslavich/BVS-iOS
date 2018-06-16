@@ -16,7 +16,9 @@ extension Measurement {
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Measurement> {
         return NSFetchRequest<Measurement>(entityName: "Measurement")
     }
-
+    
+    @NSManaged public var isRatingThumbsUp: Bool
+    @NSManaged public var isRatingThumbsDown: Bool
     @NSManaged public var measurementOn: NSDate?
     @NSManaged public var patientFeedback: String?
     @NSManaged public var patientRating: NSNumber?
