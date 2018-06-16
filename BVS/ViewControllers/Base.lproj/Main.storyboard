@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h5t-5i-E9l">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="h5t-5i-E9l">
     <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -146,6 +146,22 @@
                                     <action selector="debugReadFromDevice:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0gL-5I-7Jl"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFk-On-Jj7">
+                                <rect key="frame" x="269" y="532" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Up"/>
+                                <connections>
+                                    <action selector="thumbsUpPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P0P-1o-0e5"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRc-C4-NWZ">
+                                <rect key="frame" x="71" y="532" width="39" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Down"/>
+                                <connections>
+                                    <action selector="thumbsDownPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W1N-m1-sSa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.80315590390000002" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -176,6 +192,8 @@
                     <connections>
                         <outlet property="activityIndicatorMeasuring" destination="gF4-oO-Jym" id="pfC-4g-J73"/>
                         <outlet property="buttonReadMeasurement" destination="ipc-f1-UKQ" id="VmH-HO-X5l"/>
+                        <outlet property="buttonThumbUp" destination="nFk-On-Jj7" id="xhX-sT-33E"/>
+                        <outlet property="buttonThumbsDown" destination="qRc-C4-NWZ" id="NOA-lq-NeY"/>
                         <outlet property="labelDeviceStatus" destination="mq1-5L-KyM" id="I7Y-ar-WAT"/>
                         <outlet property="labelLastMeasurement" destination="EZm-Bq-i6Z" id="qCZ-cK-ZzN"/>
                         <outlet property="labelLastMeasurementTime" destination="JQT-8s-dsQ" id="liK-Vx-Dh1"/>

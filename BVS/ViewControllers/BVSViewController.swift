@@ -23,7 +23,9 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     @IBOutlet weak var labelMeasuringStatus: UILabel!
     @IBOutlet weak var labelDeviceStatus: UILabel!
     @IBOutlet weak var buttonReadMeasurement: UIButton!
-
+    @IBOutlet weak var buttonThumbUp: UIButton!
+    @IBOutlet weak var buttonThumbsDown: UIButton!
+    
     
     var lastMeasurement : Measurement? = nil
     var bluetoothManager : BVSBluetoothManager? = nil
@@ -87,7 +89,6 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         else {
             self.labelLastMeasurementTime.text = "No Measurements Yet"
             self.labelLastMeasurement.text = "N/A"
-            
         }
     }
 
@@ -116,6 +117,12 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         self.activityIndicatorMeasuring.startAnimating()
         
         bluetoothManager?.readFromBladderDevice()
+    }
+    
+    @IBAction func thumbsUpPressed(_ sender: Any) {
+    }
+    
+    @IBAction func thumbsDownPressed(_ sender: Any) {
     }
     
     @IBAction func showHistory(_ sender: Any) {
