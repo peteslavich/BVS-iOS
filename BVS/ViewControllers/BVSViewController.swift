@@ -89,19 +89,19 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
             }
             self.labelLastMeasurement.text = String(format: "%.1f", measurement.volume!.doubleValue)
             if measurement.isRatingThumbsUp {
-                buttonThumbUp.tintColor = UIColor.white;
-                buttonThumbsDown.tintColor = UIColor.init(red: 0.196, green: 0.3098, blue: 0.52, alpha: 1.0)
+                buttonThumbUp.alpha = 1.0
+                buttonThumbsDown.alpha = 0.15
             }
             else {
-                buttonThumbUp.tintColor = UIColor.init(red: 0.196, green: 0.3098, blue: 0.52, alpha: 1.0);
-                buttonThumbsDown.tintColor = UIColor.white
+                buttonThumbUp.alpha = 0.15
+                buttonThumbsDown.alpha = 1.0
             }
         }
         else {
             self.labelLastMeasurementTime.text = "No Measurements Yet"
             self.labelLastMeasurement.text = "N/A"
-            buttonThumbUp.tintColor = UIColor.init(red: 0.196, green: 0.3098, blue: 0.52, alpha: 1.0);
-            buttonThumbsDown.tintColor = UIColor.init(red: 0.196, green: 0.3098, blue: 0.52, alpha: 1.0)
+            buttonThumbsDown.alpha = 0.15
+            buttonThumbUp.alpha = 0.15
         }
     }
 

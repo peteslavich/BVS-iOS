@@ -130,7 +130,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-f1-UKQ">
-                                <rect key="frame" x="68" y="592" width="239" height="51"/>
+                                <rect key="frame" x="68" y="600" width="239" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                 <state key="normal" title="Read from device"/>
@@ -139,20 +139,20 @@
                                     <action selector="readFromDevicePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B0X-DZ-Mgr"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFk-On-Jj7">
-                                <rect key="frame" x="269" y="532" width="30" height="30"/>
+                            <button opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRc-C4-NWZ">
+                                <rect key="frame" x="67" y="497" width="100" height="100"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Up"/>
-                                <connections>
-                                    <action selector="thumbsUpPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P0P-1o-0e5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRc-C4-NWZ">
-                                <rect key="frame" x="71" y="532" width="39" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Down"/>
+                                <state key="normal" image="thumbs-down.png"/>
                                 <connections>
                                     <action selector="thumbsDownPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="W1N-m1-sSa"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" alpha="0.14999999999999999" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFk-On-Jj7">
+                                <rect key="frame" x="207" y="497" width="100" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="thumbs-up.png"/>
+                                <connections>
+                                    <action selector="thumbsUpPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P0P-1o-0e5"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -518,9 +518,11 @@
         </scene>
     </scenes>
     <resources>
+        <image name="thumbs-down.png" width="100" height="100"/>
+        <image name="thumbs-up.png" width="100" height="100"/>
         <image name="user-icon.png" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="cR2-iB-QLR"/>
+        <segue reference="IrU-F3-rsg"/>
     </inferredMetricsTieBreakers>
 </document>
