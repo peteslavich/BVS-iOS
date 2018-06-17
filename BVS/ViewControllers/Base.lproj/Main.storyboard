@@ -444,6 +444,7 @@
                     <navigationItem key="navigationItem" id="JGb-TF-M9x"/>
                     <connections>
                         <segue destination="gvu-py-pnW" kind="show" identifier="ShowMeasurementDetail" id="EnD-gn-bNL"/>
+                        <segue destination="CH6-hU-0eV" kind="presentation" identifier="ShowMeasurementFeedback" id="cR2-iB-QLR"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWI-JR-TLT" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -519,4 +520,7 @@
     <resources>
         <image name="user-icon.png" width="24" height="24"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="cR2-iB-QLR"/>
+    </inferredMetricsTieBreakers>
 </document>

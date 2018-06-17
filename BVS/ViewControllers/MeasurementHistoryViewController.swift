@@ -40,7 +40,7 @@ class MeasurementHistoryViewController : UIViewController, UITableViewDataSource
         dateFormatterGet.dateFormat = "yyyy-MM-dd hh:mm:ss"
         
         cell?.detailTextLabel?.text = dateFormatterGet.string(from: measurement.measurementOn! as Date)
-        
+        cell?.accessoryType = .detailButton
         return cell!
     }
     
@@ -49,9 +49,21 @@ class MeasurementHistoryViewController : UIViewController, UITableViewDataSource
         self.performSegue(withIdentifier: "ShowMeasurementDetail", sender: nil)
     }
     
+    func tableView(_ tableView: UITableView, accessoryButtonTappedForRowWith indexPath: IndexPath) {
+        self.selectedIndex = indexPath.row
+        self.performSegue(withIdentifier: "ShowMeasurementFeedback", sender: nil)
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let measurementDetail = segue.destination as! MeasurementDetailViewController
-        measurementDetail.measurement = self.measurements[self.selectedIndex]
+        if segue.identifier == "ShowMeasurementDetail" {
+            let measurementDetail = segue.destination as! MeasurementDetailViewController
+            measurementDetail.measurement = self.measurements[self.selectedIndex]
+        }
+        else {
+            let nav = segue.destination as! UINavigationController
+            let measurementFeedback = nav.topViewController as! MeasurementFeedbackViewController
+            measurementFeedback.measurement = self.measurements[self.selectedIndex]
+        }
     }
     
     
