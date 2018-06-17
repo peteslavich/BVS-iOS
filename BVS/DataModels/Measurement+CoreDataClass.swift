@@ -23,6 +23,8 @@ public class Measurement: NSManagedObject, Encodable {
         case patientID = "PatientID"
         case subMeasurements = "SubMeasurements"
         case serverID = "ID"
+        case isRatingThumbsUp = "IsPatientRatingThumbsUp"
+        case isRatingThumbsDown = "IsPatientRatingThumbsDown"
     }
     
     public func encode(to encoder: Encoder) throws {
@@ -31,22 +33,26 @@ public class Measurement: NSManagedObject, Encodable {
         if (self.serverID > 0) {
             try container.encode(serverID as Int64, forKey: .serverID)
         }
+        
         try container.encode(measurementOn! as Date, forKey: .measurementOn)
         try container.encode(volume! as Decimal, forKey: .volume)
         try container.encode(uuid, forKey: .uuid)
         
-        
         try container.encode(patientRating as! Int?, forKey: .patientRating)
         try container.encode(patientFeedback, forKey: .patientFeedback)
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        try container.encode(isRatingThumbsUp, forKey: .isRatingThumbsUp)
+        try container.encode(isRatingThumbsDown, forKey: .isRatingThumbsDown)
 
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         if let user = appDelegate.webService!.loggedInUser {
             try container.encode(user.patientID, forKey: .patientID)
         }
         
-        var sub = container.nestedUnkeyedContainer(forKey: .subMeasurements)
-        for s in Array(subMeasurements!) as! Array<SubMeasurement> {
-            try sub.encode(s)
+        if (self.serverID == 0) {
+            var sub = container.nestedUnkeyedContainer(forKey: .subMeasurements)
+            for s in Array(subMeasurements!) as! Array<SubMeasurement> {
+                try sub.encode(s)
+            }
         }
 
     }

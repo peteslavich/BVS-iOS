@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import AVFoundation
 
 class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     
@@ -31,6 +32,8 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     var bluetoothManager : BVSBluetoothManager? = nil
     var webServiceManager : BVSWebService!
 
+    //MARK:Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -85,18 +88,26 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
                 dateFormatterGet.dateFormat = "MM/dd/yyyy, h:mm:ss a"
             }
             self.labelLastMeasurement.text = String(format: "%.1f", measurement.volume!.doubleValue)
+            if measurement.isRatingThumbsUp {
+                buttonThumbUp.tintColor = UIColor.white;
+                buttonThumbsDown.tintColor = UIColor.init(red: 0.196, green: 0.3098, blue: 0.52, alpha: 1.0)
+            }
+            else {
+                buttonThumbUp.tintColor = UIColor.init(red: 0.196, green: 0.3098, blue: 0.52, alpha: 1.0);
+                buttonThumbsDown.tintColor = UIColor.white
+            }
         }
         else {
             self.labelLastMeasurementTime.text = "No Measurements Yet"
             self.labelLastMeasurement.text = "N/A"
+            buttonThumbUp.tintColor = UIColor.init(red: 0.196, green: 0.3098, blue: 0.52, alpha: 1.0);
+            buttonThumbsDown.tintColor = UIColor.init(red: 0.196, green: 0.3098, blue: 0.52, alpha: 1.0)
         }
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
 
-    @IBAction func debug(_ sender: Any) {
+
+    @IBAction func simulateMeasurementPressed(_ sender: Any) {
         
         self.viewContainerLastMeasurement.isHidden = true
         self.viewContainerMeasuring.isHidden = false
@@ -104,12 +115,8 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         _ = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(measurementFinished), userInfo: nil, repeats: false)
     }
     
-    @IBAction func debugPost(_ sender: Any) {
-        //let webService = BVSWebService()
-        //webService.post()
-    }
     
-    @IBAction func debugReadFromDevice(_ sender: Any) {
+    @IBAction func readFromDevicePressed(_ sender: Any) {
         buttonReadMeasurement.isEnabled = false
 
         self.viewContainerLastMeasurement.isHidden = true
@@ -120,9 +127,51 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     }
     
     @IBAction func thumbsUpPressed(_ sender: Any) {
+        if let measurement = self.lastMeasurement {
+            if !measurement.isRatingThumbsUp {
+                // create a sound ID, in this case its the tweet sound.
+                let systemSoundID: SystemSoundID = 1052
+                
+                // to play sound
+                AudioServicesPlaySystemSound (systemSoundID)
+                measurement.isRatingThumbsUp = true
+                measurement.isRatingThumbsDown = false
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
+                do {
+                    try context.save()
+                    webServiceManager.addObjectIDToQueue(objectID: measurement.objectID)
+                }
+                catch {
+                    
+                }
+                updateMeasurementUI()
+            }
+        }
     }
     
     @IBAction func thumbsDownPressed(_ sender: Any) {
+        if let measurement = self.lastMeasurement {
+            if !measurement.isRatingThumbsDown {
+                let systemSoundID: SystemSoundID = 1052
+                AudioServicesPlaySystemSound (systemSoundID)
+                
+                measurement.isRatingThumbsUp = false
+                measurement.isRatingThumbsDown = true
+                
+                let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                let context = appDelegate.persistentContainer.viewContext
+                do {
+                    try context.save()
+                    webServiceManager.addObjectIDToQueue(objectID: measurement.objectID)
+                }
+                catch {
+                    
+                }
+                updateMeasurementUI()
+            }
+        }
     }
     
     @IBAction func showHistory(_ sender: Any) {

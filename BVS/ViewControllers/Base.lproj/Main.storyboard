@@ -119,7 +119,7 @@
                                 </constraints>
                                 <state key="normal" title="Simulate measurement"/>
                                 <connections>
-                                    <action selector="debug:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vrH-2j-e0i"/>
+                                    <action selector="simulateMeasurementPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hRr-oH-s3k"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="infoLight" showsTouchWhenHighlighted="YES" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xb2-SS-0n1">
@@ -129,14 +129,6 @@
                                     <action selector="enterFeedback:" destination="BYZ-38-t0r" eventType="touchUpInside" id="009-P8-ylK"/>
                                 </connections>
                             </button>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-z2-sf6">
-                                <rect key="frame" x="102" y="148" width="171" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Post latest measurement"/>
-                                <connections>
-                                    <action selector="debugPost:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xV8-Hf-xDl"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ipc-f1-UKQ">
                                 <rect key="frame" x="68" y="592" width="239" height="51"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -144,6 +136,7 @@
                                 <state key="normal" title="Read from device"/>
                                 <connections>
                                     <action selector="debugReadFromDevice:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0gL-5I-7Jl"/>
+                                    <action selector="readFromDevicePressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="B0X-DZ-Mgr"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nFk-On-Jj7">
