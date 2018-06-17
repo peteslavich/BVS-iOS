@@ -92,9 +92,13 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
                 buttonThumbUp.alpha = 1.0
                 buttonThumbsDown.alpha = 0.15
             }
-            else {
+            else if measurement.isRatingThumbsDown {
                 buttonThumbUp.alpha = 0.15
                 buttonThumbsDown.alpha = 1.0
+            }
+            else  {
+                buttonThumbUp.alpha = 0.15
+                buttonThumbsDown.alpha = 0.15
             }
         }
         else {
@@ -129,10 +133,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     @IBAction func thumbsUpPressed(_ sender: Any) {
         if let measurement = self.lastMeasurement {
             if !measurement.isRatingThumbsUp {
-                // create a sound ID, in this case its the tweet sound.
                 let systemSoundID: SystemSoundID = 1052
-                
-                // to play sound
                 AudioServicesPlaySystemSound (systemSoundID)
                 measurement.isRatingThumbsUp = true
                 measurement.isRatingThumbsDown = false
