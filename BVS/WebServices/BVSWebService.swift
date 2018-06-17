@@ -33,8 +33,7 @@ class BVSWebService {
     let baseAddress = "http://bvspds.azurewebsites.net/api"
     let session = URLSession(configuration: .default)
     var dataTask : URLSessionDataTask? = URLSessionDataTask()
-    let privateMOC : NSManagedObjectContext
-    let mainMOC : NSManagedObjectContext
+    let context : NSManagedObjectContext
     
     var queue : [NSManagedObjectID]  = [NSManagedObjectID]()  //queue of model object_ids to post
     var currentObject : Measurement? = nil
@@ -49,10 +48,8 @@ class BVSWebService {
 
     init() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        mainMOC = appDelegate.persistentContainer.viewContext
-        
-        privateMOC = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        privateMOC.parent = mainMOC
+        context = appDelegate.persistentContainer.viewContext
+
         
         NotificationCenter.default.addObserver(
             self,
@@ -130,7 +127,7 @@ class BVSWebService {
         measurementFetch.sortDescriptors = [sort]
         
         do {
-            let measurements = try privateMOC.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]
+            let measurements = try context.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]
             for measurement in measurements {
                 queue.append(measurement.objectID)
             }
@@ -178,7 +175,7 @@ class BVSWebService {
                 state = .processing
                 let objectID = queue.first
                 queue.removeFirst(1)
-                currentObject = privateMOC.object(with: objectID!) as? Measurement
+                currentObject = context.object(with: objectID!) as? Measurement
                 postCurrentObject()
             }
             else {
@@ -405,16 +402,8 @@ class BVSWebService {
                         }
                         if shouldSave {
                             do {
-                                try self.privateMOC.save()
-                                self.mainMOC.performAndWait {
-                                    do {
-                                        try self.mainMOC.save()
-                                        self.postCompleted()
-                                    }
-                                    catch {
-                                        fatalError("Failure to save context: \(error)")
-                                    }
-                                }
+                                try self.context.save()
+                                self.postCompleted()
                             }
                             catch {
                                 fatalError("Failure to save context: \(error)")
