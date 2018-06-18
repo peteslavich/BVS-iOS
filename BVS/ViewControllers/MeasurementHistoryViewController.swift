@@ -59,13 +59,16 @@ class MeasurementHistoryViewController : UIViewController, UITableViewDataSource
             let measurementDetail = segue.destination as! MeasurementDetailViewController
             measurementDetail.measurement = self.measurements[self.selectedIndex]
         }
-        else {
+        else if segue.identifier == "ShowMeasurementFeedback" {
             let nav = segue.destination as! UINavigationController
             let measurementFeedback = nav.topViewController as! MeasurementFeedbackViewController
             measurementFeedback.measurement = self.measurements[self.selectedIndex]
         }
     }
     
+    @IBAction func chartPressed(_ sender: Any) {
+        self.performSegue(withIdentifier: "showChart", sender: nil)
+    }
     
     func updateData() {
         let appDelegate = UIApplication.shared.delegate as! AppDelegate

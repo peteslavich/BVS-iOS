@@ -171,7 +171,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="YfC-08-fho">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="user-icon.png" style="plain" id="VDH-eI-6Se">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="user-icon.png" id="VDH-eI-6Se">
                             <connections>
                                 <action selector="profilePressed:" destination="BYZ-38-t0r" id="moU-ad-x28"/>
                             </connections>
@@ -263,7 +263,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7d-ih-BAZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1130" y="587"/>
+            <point key="canvasLocation" x="916" y="587"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="zl1-af-5BJ">
@@ -279,7 +279,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VaS-th-V9i" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="303" y="124"/>
+            <point key="canvasLocation" x="66" y="587"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="6yB-em-Vbr">
@@ -433,7 +433,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5u9-2V-7Zn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1308" y="-1128"/>
+            <point key="canvasLocation" x="1308" y="-1198"/>
         </scene>
         <!--Measurement History View Controller-->
         <scene sceneID="CyW-Rk-Fuz">
@@ -461,15 +461,52 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="mGY-oN-BZ0"/>
                     </view>
-                    <navigationItem key="navigationItem" id="JGb-TF-M9x"/>
+                    <navigationItem key="navigationItem" id="JGb-TF-M9x">
+                        <barButtonItem key="rightBarButtonItem" title="Chart" id="pGy-zl-t0O">
+                            <connections>
+                                <action selector="chartPressed:" destination="CJ8-bo-JTo" id="zZn-89-K2P"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="gvu-py-pnW" kind="show" identifier="ShowMeasurementDetail" id="EnD-gn-bNL"/>
                         <segue destination="CH6-hU-0eV" kind="presentation" identifier="ShowMeasurementFeedback" id="cR2-iB-QLR"/>
+                        <segue destination="Qhx-Df-Mf6" kind="show" identifier="showChart" id="gte-aL-6KL"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YWI-JR-TLT" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2168.8000000000002" y="-176.60098522167488"/>
+        </scene>
+        <!--Measurement Chart View Controller-->
+        <scene sceneID="Ewr-JN-FSv">
+            <objects>
+                <viewController id="Qhx-Df-Mf6" customClass="MeasurementChartViewController" customModule="BVS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8J6-YE-z1X">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pxr-qg-TTg" customClass="BarChartView" customModule="Charts">
+                                <rect key="frame" x="16" y="88" width="343" height="690"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="pxr-qg-TTg" firstAttribute="top" secondItem="4OR-ZM-m85" secondAttribute="top" id="4a7-ZM-gy9"/>
+                            <constraint firstItem="pxr-qg-TTg" firstAttribute="leading" secondItem="4OR-ZM-m85" secondAttribute="leading" constant="16" id="W8g-Ke-OoT"/>
+                            <constraint firstItem="pxr-qg-TTg" firstAttribute="bottom" secondItem="4OR-ZM-m85" secondAttribute="bottom" id="iwj-y2-Nb5"/>
+                            <constraint firstItem="4OR-ZM-m85" firstAttribute="trailing" secondItem="pxr-qg-TTg" secondAttribute="trailing" constant="16" id="pPe-tp-7h0"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="4OR-ZM-m85"/>
+                    </view>
+                    <connections>
+                        <outlet property="barChartView" destination="pxr-qg-TTg" id="lG6-5w-fUh"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="G36-mH-zf1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3005.5999999999999" y="-873.39901477832518"/>
         </scene>
         <!--Measurement Detail View Controller-->
         <scene sceneID="fzo-wS-qI7">
