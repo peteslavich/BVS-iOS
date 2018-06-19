@@ -12,22 +12,22 @@ import Charts
 
 class MeasurementChartViewController : UIViewController {
 
-    @IBOutlet weak var barChartView: BarChartView!
+    @IBOutlet weak var barChartView: LineChartView!
     var months: [String]!
 
     func setChart(dataPoints: [String], values: [Double]) {
         barChartView.noDataText = "You need to provide data for the chart."
-        
-        var dataEntries: [BarChartDataEntry] = []
+        var dataEntries: [ChartDataEntry] = []
         
         for i in 0..<dataPoints.count {
-            let dataEntry = BarChartDataEntry(x: Double(i), y: values[i])
+            let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
             dataEntries.append(dataEntry)
         }
         
-        let chartDataSet = BarChartDataSet(values: dataEntries, label: "Units Sold")
-        let chartData = BarChartData(dataSets: [chartDataSet])
-        barChartView.data = chartData
+        
+        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Units Sold")
+        let lineChartData = LineChartData(dataSets: [lineChartDataSet])
+        barChartView.data = lineChartData
     }
     
     override func viewDidLoad() {
