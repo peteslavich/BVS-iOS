@@ -477,7 +477,7 @@ public class SubMeasurement: NSManagedObject, Encodable {
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(measurementOn! as Date, forKey: .measurementOn)
-        try container.encode(volume! as Decimal, forKey: .volume)
+        try container.encode(volume as Int32, forKey: .volume)
         try container.encode(uuid, forKey: .uuid)
 
         try container.encode(sensor1LED1 as Int32, forKey: .sensor1LED1)

@@ -23,7 +23,7 @@ extension Measurement {
     @NSManaged public var patientFeedback: String?
     @NSManaged public var patientRating: NSNumber?
     @NSManaged public var uuid: UUID?
-    @NSManaged public var volume: NSDecimalNumber?
+    @NSManaged public var volume: Int32
     @NSManaged public var serverID: Int64
     @NSManaged public var updatedOn: NSDate?
     @NSManaged public var subMeasurements: NSSet?

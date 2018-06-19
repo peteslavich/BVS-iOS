@@ -87,7 +87,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
             {
                 dateFormatterGet.dateFormat = "MM/dd/yyyy, h:mm:ss a"
             }
-            self.labelLastMeasurement.text = String(format: "%.1f", measurement.volume!.doubleValue)
+            self.labelLastMeasurement.text = String(format: "%d", measurement.volume)
             if measurement.isRatingThumbsUp {
                 buttonThumbUp.alpha = 1.0
                 buttonThumbsDown.alpha = 0.15
@@ -204,25 +204,22 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let randomNumber = arc4random_uniform(3001)
+        let randomNumber = arc4random_uniform(101)
         
         let measurement = NSEntityDescription.insertNewObject(forEntityName: "Measurement", into: context) as! Measurement
         measurement.measurementOn = Date() as NSDate
-        let dd = 40.0 + Double(randomNumber)/100.0
-        let d = String(format:"%.1f", dd)
-        let dn = NSDecimalNumber(string:d)
-        measurement.volume = dn
+        measurement.volume = 150 + Int32(randomNumber)
         measurement.uuid = UUID()
 
         for i in 0...2 {
             let subMeasurement = NSEntityDescription.insertNewObject(forEntityName: "SubMeasurement", into: context) as! SubMeasurement
             for j in 1...8 {
                 for k in 1...8 {
-                    let ddd = dd + Double(10*j + k)
-                    subMeasurement[j,k] = Int32(ddd)
+                    let v = measurement.volume + Int32(10*j + k)
+                    subMeasurement[j,k] = v
                 }
             }
-            subMeasurement.volume = dn
+            subMeasurement.volume = measurement.volume
             subMeasurement.uuid = UUID()
             let timeInterval = TimeInterval(i)
             subMeasurement.measurementOn = ((measurement.measurementOn! as Date) - timeInterval) as NSDate
@@ -277,15 +274,11 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let randomNumber = arc4random_uniform(3001)
+        let randomNumber = arc4random_uniform(101)
         
         let measurement = NSEntityDescription.insertNewObject(forEntityName: "Measurement", into: context) as! Measurement
         measurement.measurementOn = Date() as NSDate
-        let dd = 40.0 + Double(randomNumber)/100.0
-        let de = String(format:"%.1f", dd)
-        let dn = NSDecimalNumber(string:de)
-        
-        measurement.volume = dn
+        measurement.volume = 150 + Int32(randomNumber)
         measurement.uuid = UUID()
         
         for i in 0...2 {
@@ -293,7 +286,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
             for j in 1...8 {
                 subMeasurement[j] = data[j-1]
             }
-            subMeasurement.volume = dn
+            subMeasurement.volume = measurement.volume
             subMeasurement.uuid = UUID()
             let timeInterval = TimeInterval(i)
             subMeasurement.measurementOn = ((measurement.measurementOn! as Date) - timeInterval) as NSDate

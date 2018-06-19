@@ -35,7 +35,7 @@ public class Measurement: NSManagedObject, Encodable {
         }
         
         try container.encode(measurementOn! as Date, forKey: .measurementOn)
-        try container.encode(volume! as Decimal, forKey: .volume)
+        try container.encode(volume as Int32, forKey: .volume)
         try container.encode(uuid, forKey: .uuid)
         
         try container.encode(patientRating as! Int?, forKey: .patientRating)

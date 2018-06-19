@@ -31,7 +31,7 @@ class MeasurementHistoryViewController : UIViewController, UITableViewDataSource
             cell = UITableViewCell(style:.subtitle, reuseIdentifier:"MeasurementCell")
         }
         let measurement = measurements[indexPath.row]
-        cell?.textLabel?.text = String(format: "%.1f", measurement.volume!.doubleValue)
+        cell?.textLabel?.text = String(format: "%d", measurement.volume)
 //        if measurement.serverID > 0 {
 //            cell?.textLabel?.text?.append(String(format: " (ServerID: %d)", measurement.serverID))
 //        }

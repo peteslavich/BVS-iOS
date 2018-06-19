@@ -88,7 +88,7 @@ class MeasurementFeedbackViewController : UIViewController {
         dateFormatterGet.dateFormat = "MM/dd/yyyy hh:mm:ss"
         
         if let measurement = self.measurement {
-            self.labelMeasurementInfo.text = String(format: "%@: %.1f", dateFormatterGet.string(from: measurement.measurementOn! as Date), measurement.volume!.doubleValue)
+            self.labelMeasurementInfo.text = String(format: "%@: %d", dateFormatterGet.string(from: measurement.measurementOn! as Date), measurement.volume)
             
             if let rating = measurement.patientRating {
                 self.sliderFeedbackRating.value = Float(rating.intValue)

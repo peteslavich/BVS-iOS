@@ -32,7 +32,7 @@ class MeasurementDetailViewController : UIViewController, UITableViewDataSource,
             cell = UITableViewCell(style:.subtitle, reuseIdentifier:"SubMeasurementCell")
         }
         let subMeasurement = subMeasurementArray[indexPath.row]
-        cell?.textLabel?.text = String(format: "%.1f", subMeasurement.volume!.doubleValue)
+        cell?.textLabel?.text = String(format: "%d", subMeasurement.volume)
         
         let dateFormatterGet = DateFormatter()
         dateFormatterGet.dateFormat = "yyyy-MM-dd hh:mm:ss"

@@ -83,7 +83,7 @@ extension SubMeasurement {
     @NSManaged public var sensor8LED7: Int32
     @NSManaged public var sensor8LED8: Int32
     @NSManaged public var uuid: UUID?
-    @NSManaged public var volume: NSDecimalNumber?
+    @NSManaged public var volume: Int32
     @NSManaged public var measurement: Measurement?
 
 }
