@@ -13,10 +13,21 @@ import CoreData
 class SubMeasurementDetailViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     var subMeasurement : SubMeasurement? = nil
+    @IBOutlet weak var labelVolume: UILabel!
+    @IBOutlet weak var labelMeasurementOn: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationItem.title = "SubMeasurement Detail"
+        
+        if let subMeasurement = self.subMeasurement {
+            labelVolume.text = "\(subMeasurement.volume)"
+            let dateFormatterGet = DateFormatter()
+            dateFormatterGet.dateFormat = "MM/dd/yyyy, h:mm:ss a"
+            let measurementDate = subMeasurement.measurementOn! as Date
+            labelMeasurementOn.text = dateFormatterGet.string(from: measurementDate)
+        }
+
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
