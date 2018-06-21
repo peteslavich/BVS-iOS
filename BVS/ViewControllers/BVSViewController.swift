@@ -86,6 +86,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
             else
             {
                 dateFormatterGet.dateFormat = "MM/dd/yyyy, h:mm:ss a"
+                self.labelLastMeasurementTime.text = dateFormatterGet.string(from: measurementDate)
             }
             self.labelLastMeasurement.text = String(format: "%d", measurement.volume)
             if measurement.isRatingThumbsUp {
@@ -274,7 +275,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
-        let randomNumber = arc4random_uniform(101)
+        let randomNumber = arc4random_uniform(100)
         
         let measurement = NSEntityDescription.insertNewObject(forEntityName: "Measurement", into: context) as! Measurement
         measurement.measurementOn = Date() as NSDate
