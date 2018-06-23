@@ -199,7 +199,8 @@ class MeasurementChartViewController : UIViewController {
         alertController.view.addSubview(self.datePicker)
     
         let cancelAction = UIAlertAction(title: "Done", style: .cancel) { (action) in
-            self.dateSelected(datePicker: self.datePicker)
+            //self.dateSelected(datePicker: self.datePicker)
+            self.refreshChart()
         }
     
         //add button to action sheet
@@ -223,11 +224,24 @@ class MeasurementChartViewController : UIViewController {
         if let label = selectedLabel {
             if label == labelStartDate {
                 startDate = currentDate
+                if endDate < startDate {
+                    endDate = startDate
+                    labelEndDate.text = dateFormatter.string(from: endDate)
+
+                }
             }
             else if label == labelEndDate {
                 endDate = currentDate
+                if startDate > endDate {
+                    startDate = endDate
+                    labelStartDate.text = dateFormatter.string(from: startDate)
+                }
             }
         }
+    }
+    
+    public func refreshChart() {
+        
     }
 }
 
