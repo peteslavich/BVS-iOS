@@ -487,13 +487,41 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pxr-qg-TTg" customClass="LineChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="88" width="343" height="690"/>
+                                <rect key="frame" x="16" y="163" width="343" height="615"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZjN-tU-1oh">
+                                <rect key="frame" x="16" y="98" width="83" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Date:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cf1-yT-2Af">
+                                <rect key="frame" x="16" y="127" width="75" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4/9/2009" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fyN-Yh-TdJ">
+                                <rect key="frame" x="107" y="98" width="252" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="4/9/2009" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCU-6q-gyE">
+                                <rect key="frame" x="107" y="127" width="252" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="pxr-qg-TTg" firstAttribute="top" secondItem="4OR-ZM-m85" secondAttribute="top" id="4a7-ZM-gy9"/>
+                            <constraint firstItem="pxr-qg-TTg" firstAttribute="top" secondItem="4OR-ZM-m85" secondAttribute="top" constant="75" id="4a7-ZM-gy9"/>
                             <constraint firstItem="pxr-qg-TTg" firstAttribute="leading" secondItem="4OR-ZM-m85" secondAttribute="leading" constant="16" id="W8g-Ke-OoT"/>
                             <constraint firstItem="pxr-qg-TTg" firstAttribute="bottom" secondItem="4OR-ZM-m85" secondAttribute="bottom" id="iwj-y2-Nb5"/>
                             <constraint firstItem="4OR-ZM-m85" firstAttribute="trailing" secondItem="pxr-qg-TTg" secondAttribute="trailing" constant="16" id="pPe-tp-7h0"/>
@@ -502,11 +530,13 @@
                     </view>
                     <connections>
                         <outlet property="chartView" destination="pxr-qg-TTg" id="HC5-Qv-hMj"/>
+                        <outlet property="labelEndDate" destination="vCU-6q-gyE" id="hSa-eP-IYj"/>
+                        <outlet property="labelStartDate" destination="fyN-Yh-TdJ" id="Fec-Se-rhc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G36-mH-zf1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3006" y="-1178"/>
+            <point key="canvasLocation" x="3005.5999999999999" y="-1178.5714285714287"/>
         </scene>
         <!--Measurement Detail View Controller-->
         <scene sceneID="fzo-wS-qI7">

@@ -14,12 +14,42 @@ import Charts
 class MeasurementChartViewController : UIViewController {
 
     @IBOutlet weak var chartView: LineChartView!
+    @IBOutlet weak var labelStartDate: UILabel!
+    @IBOutlet weak var labelEndDate: UILabel!
+    
+    var datePicker = UIDatePicker()
+    var selectedLabel : UILabel? = nil
     var months: [String]!
     let count = 100
+    
+    var startDate = Date()
+    var endDate = Date()
 
     override func viewDidLoad() {
+        
+        let now = Date()
+        
+        let today = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: now))!
+        startDate = today
+        endDate = today
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+
+        labelStartDate?.text = dateFormatter.string(from: startDate)
+        labelEndDate?.text = dateFormatter.string(from: endDate)
+
+        
         setUpChart();
         self.setDataCount(100, range: 30)
+
+        let tap = UITapGestureRecognizer()
+        tap.addTarget(self, action: #selector(MeasurementChartViewController.dateSelect(sender:)))
+        labelStartDate.addGestureRecognizer(tap)
+        
+        let tap2 = UITapGestureRecognizer()
+        tap2.addTarget(self, action: #selector(MeasurementChartViewController.dateSelect(sender:)))
+        labelEndDate.addGestureRecognizer(tap2)
     }
     
     func setUpChart() {
@@ -101,19 +131,19 @@ class MeasurementChartViewController : UIViewController {
         var values = [ChartDataEntry]()
         var x = 0
         for t in timeValues {
-            var v = 50 + 75*x
+            let v = 50 + 75*x
             values.append(ChartDataEntry(x: t, y: Double(v)))
             x = (x + 1) % 3
         }
         
         
 
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        
-        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
-        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: false)
-        measurementFetch.sortDescriptors = [sort]
+//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+//        let context = appDelegate.persistentContainer.viewContext
+//
+//        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
+//        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: false)
+//        measurementFetch.sortDescriptors = [sort]
         
 //        var measurements = [Measurement]()
 //        do {
@@ -145,6 +175,59 @@ class MeasurementChartViewController : UIViewController {
         data.setValueFont(.systemFont(ofSize: 9, weight: .light))
         
         chartView.data = data
+    }
+    
+    @objc func dateSelect(sender:UITapGestureRecognizer) {
+        
+        selectedLabel = sender.view! as? UILabel
+        
+        //init date picker
+        self.datePicker = UIDatePicker(frame: CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 260))
+        self.datePicker.datePickerMode = .date
+        if selectedLabel == labelStartDate {
+            self.datePicker.setDate(startDate, animated: false)
+        }
+        else {
+            self.datePicker.setDate(endDate, animated: false)
+        }
+        
+        //add target
+        self.datePicker.addTarget(self, action: #selector(dateSelected(datePicker:)), for: .valueChanged)
+        
+        //add to actionsheetview
+        let alertController = UIAlertController(title: "Date Selection", message:" " , preferredStyle: UIAlertControllerStyle.actionSheet)
+        alertController.view.addSubview(self.datePicker)
+    
+        let cancelAction = UIAlertAction(title: "Done", style: .cancel) { (action) in
+            self.dateSelected(datePicker: self.datePicker)
+        }
+    
+        //add button to action sheet
+        alertController.addAction(cancelAction)
+    
+        let height:NSLayoutConstraint = NSLayoutConstraint(item: alertController.view, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1, constant: 300)
+        alertController.view.addConstraint(height);
+    
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    //selected date func
+    @objc func dateSelected(datePicker:UIDatePicker) {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        
+        let currentDate = datePicker.date
+        selectedLabel?.text = dateFormatter.string(from: currentDate)
+        
+        if let label = selectedLabel {
+            if label == labelStartDate {
+                startDate = currentDate
+            }
+            else if label == labelEndDate {
+                endDate = currentDate
+            }
+        }
     }
 }
 
