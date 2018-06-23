@@ -8,32 +8,155 @@
 
 import Foundation
 import UIKit
+import CoreData
 import Charts
 
 class MeasurementChartViewController : UIViewController {
 
-    @IBOutlet weak var barChartView: LineChartView!
+    @IBOutlet weak var chartView: LineChartView!
     var months: [String]!
+    let count = 100
 
-    func setChart(dataPoints: [String], values: [Double]) {
-        barChartView.noDataText = "You need to provide data for the chart."
-        var dataEntries: [ChartDataEntry] = []
+    override func viewDidLoad() {
+        setUpChart();
+        self.setDataCount(100, range: 30)
+    }
+    
+    func setUpChart() {
+//        self.title = "Line Chart 2"
+//        self.options = [.toggleValues,
+//                        .toggleFilled,
+//                        .toggleCircles,
+//                        .toggleCubic,
+//                        .toggleHorizontalCubic,
+//                        .toggleStepped,
+//                        .toggleHighlight,
+//                        .animateX,
+//                        .animateY,
+//                        .animateXY,
+//                        .saveToGallery,
+//                        .togglePinchZoom,
+//                        .toggleAutoScaleMinMax,
+//                        .toggleData]
         
-        for i in 0..<dataPoints.count {
-            let dataEntry = ChartDataEntry(x: Double(i), y: values[i])
-            dataEntries.append(dataEntry)
+        //chartView.delegate = self
+        
+        chartView.chartDescription?.enabled = false
+        
+        chartView.dragEnabled = true
+        chartView.setScaleEnabled(true)
+        chartView.pinchZoomEnabled = false
+        chartView.highlightPerDragEnabled = true
+        
+        chartView.backgroundColor = .white
+        
+        chartView.legend.enabled = false
+        
+        let xAxis = chartView.xAxis
+        xAxis.labelPosition = .topInside
+        xAxis.labelFont = .systemFont(ofSize: 10, weight: .light)
+        xAxis.labelTextColor = UIColor(red: 255/255, green: 192/255, blue: 56/255, alpha: 1)
+        xAxis.drawAxisLineEnabled = false
+        xAxis.drawGridLinesEnabled = true
+        xAxis.centerAxisLabelsEnabled = true
+        xAxis.granularity = 3600
+        xAxis.valueFormatter = DateValueFormatter()
+        
+        let leftAxis = chartView.leftAxis
+        leftAxis.labelPosition = .insideChart
+        leftAxis.labelFont = .systemFont(ofSize: 12, weight: .light)
+        leftAxis.drawGridLinesEnabled = true
+        leftAxis.granularityEnabled = true
+        leftAxis.axisMinimum = 0
+        leftAxis.axisMaximum = 1000
+        leftAxis.yOffset = -9
+        leftAxis.labelTextColor = UIColor(red: 255/255, green: 192/255, blue: 56/255, alpha: 1)
+        
+        
+        chartView.rightAxis.enabled = false
+        
+        chartView.legend.form = .line
+        
+//        sliderX.value = 100
+//        slidersValueChanged(nil)
+        
+        chartView.animate(xAxisDuration: 2.5)
+    }
+
+    func setDataCount(_ count: Int, range: UInt32) {
+        let now = Date()
+        
+        let today = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: now))
+        let threeDaysBack = today?.addingTimeInterval(-3600*24)
+        let twentyMinutes: TimeInterval = 1200
+        let timeValues = stride(from:Double((threeDaysBack?.timeIntervalSince1970)!), to:Double((today?.timeIntervalSince1970)!), by: twentyMinutes)
+        
+//        let from = now - 72.0 * hourSeconds
+//        let to = now
+//
+//        let values = stride(from: from, to: to, by: 1200).map { (x) -> ChartDataEntry in
+//            let y = arc4random_uniform(range) + 50
+//            return ChartDataEntry(x: x, y: Double(y))
+//        }
+        var values = [ChartDataEntry]()
+        var x = 0
+        for t in timeValues {
+            var v = 50 + 75*x
+            values.append(ChartDataEntry(x: t, y: Double(v)))
+            x = (x + 1) % 3
         }
         
         
-        let lineChartDataSet = LineChartDataSet(values: dataEntries, label: "Units Sold")
-        let lineChartData = LineChartData(dataSets: [lineChartDataSet])
-        barChartView.data = lineChartData
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
+        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: false)
+        measurementFetch.sortDescriptors = [sort]
+        
+//        var measurements = [Measurement]()
+//        do {
+//            measurements = try context.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]
+//        }
+//        catch {
+//            fatalError("Failed to fetch measurements: \(error)")
+//        }
+        
+//        let values = measurements.map { (x) -> ChartDataEntry in
+//            let y = x.volume
+//            return ChartDataEntry(x: (x.measurementOn?.timeIntervalSince1970)!, y: Double(y))
+//        }
+
+        
+        let set1 = LineChartDataSet(values: values, label: "DataSet 1")
+        set1.axisDependency = .left
+        set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
+        set1.lineWidth = 1.5
+        set1.drawCirclesEnabled = false
+        set1.drawValuesEnabled = false
+        set1.fillAlpha = 0.26
+        set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
+        set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
+        set1.drawCircleHoleEnabled = false
+        
+        let data = LineChartData(dataSet: set1)
+        data.setValueTextColor(.white)
+        data.setValueFont(.systemFont(ofSize: 9, weight: .light))
+        
+        chartView.data = data
+    }
+}
+
+public class DateValueFormatter: NSObject, IAxisValueFormatter {
+    private let dateFormatter = DateFormatter()
+    
+    override init() {
+        super.init()
+        dateFormatter.dateFormat = "dd MMM HH:mm"
     }
     
-    override func viewDidLoad() {
-        months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
-        let unitsSold = [20.0, 4.0, 6.0, 3.0, 12.0, 16.0, 4.0, 18.0, 2.0, 4.0, 5.0, 4.0]
-        
-        setChart(dataPoints:months, values: unitsSold)
+    public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        return dateFormatter.string(from: Date(timeIntervalSince1970: value))
     }
 }
