@@ -66,7 +66,13 @@ class LoginViewController : UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @IBAction func cancelPressed(_ sender: Any) {
-        presentingViewController?.dismiss(animated: true, completion: nil)
+        let alert = UIAlertController(title:"Don't Log In?", message: "Are you sure you don't want to log in? If you are not logged in, your data will not be sent to the server for analysis.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "Continue Log In", style: .default, handler: nil))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { _ in
+            self.presentingViewController?.dismiss(animated: true, completion: nil)
+        }))
+        
+        present(alert,animated: true, completion: nil)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

@@ -31,7 +31,8 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     var lastMeasurement : Measurement? = nil
     var bluetoothManager : BVSBluetoothManager? = nil
     var webServiceManager : BVSWebService!
-
+    
+    var showedLoginNagScreen = false
     //MARK:Methods
     
     override func viewDidLoad() {
@@ -46,6 +47,17 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         webServiceManager = appDelegate.webService!
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        if !showedLoginNagScreen {
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            webServiceManager = appDelegate.webService!
+            if !webServiceManager.isUserLoggedIn {
+                profilePressed(self)
+            }
+            showedLoginNagScreen = true
+        }
     }
     
     func setUpBluetooth() {
@@ -182,7 +194,7 @@ class BVSViewController: UIViewController, BVSBluetoothManagerDelegate {
     
     @IBAction func profilePressed(_ sender: Any) {
         if webServiceManager.isUserLoggedIn {
-            let alert = UIAlertController(title:"Log Out?", message: "Are you sure you want to log out? You are currently logged in as \(webServiceManager.loggedInUser!.emailAddress)", preferredStyle: .alert)
+            let alert = UIAlertController(title:"Log Out?", message: "Are you sure you want to log out? You are currently logged in as \(webServiceManager.loggedInUser!.emailAddress). If you are not logged in, your data will not be sent to the server for analysis.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: {_ in
                 self.webServiceManager.logout()
                 self.performSegue(withIdentifier: "ShowLogin", sender: nil)
