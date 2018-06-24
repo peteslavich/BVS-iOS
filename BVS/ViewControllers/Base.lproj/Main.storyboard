@@ -588,8 +588,8 @@
                                     <outlet property="delegate" destination="okS-fK-ciK" id="KAW-k7-52V"/>
                                 </connections>
                             </tableView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calcuated Volume:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJd-zu-NAO">
-                                <rect key="frame" x="16" y="98" width="195" height="27"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Calculated Volume:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJd-zu-NAO">
+                                <rect key="frame" x="16" y="98" width="200" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="2Bb-cW-CDW"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="195" id="WU9-9r-PJU"/>
@@ -609,7 +609,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="999" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="lMd-tr-GW5">
-                                <rect key="frame" x="219" y="98" width="140" height="27"/>
+                                <rect key="frame" x="224" y="98" width="135" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="E37-VM-KJW"/>
                                 </constraints>

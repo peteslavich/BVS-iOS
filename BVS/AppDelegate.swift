@@ -19,13 +19,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         webService = BVSWebService()
         
-        let dateString = "06/20/2018"
-        let dateFormatter = DateFormatter()
-        
-        dateFormatter.dateFormat = "MM/dd/yyyy"
-        let dateFromString = dateFormatter.date(from: dateString)!
-        
-        createDemoData(startDate: dateFromString, numberOfDays: 2)
+//        let dateString = "06/20/2018"
+//        let dateFormatter = DateFormatter()
+//
+//        dateFormatter.dateFormat = "MM/dd/yyyy"
+//        let dateFromString = dateFormatter.date(from: dateString)!
+//
+//        createDemoData(startDate: dateFromString, numberOfDays: 4)
         
         return true
     }
@@ -223,9 +223,38 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             newDate = calendar.date(from: components)!
             tuple.append((newDate,144))
 
+            let context = persistentContainer.viewContext
 
             for y in tuple {
                 print("\(formatter.string(from: y.0)): \(y.1)")
+                
+                let measurement = NSEntityDescription.insertNewObject(forEntityName: "Measurement", into: context) as! Measurement
+                measurement.measurementOn = y.0 as NSDate
+                measurement.volume = y.1
+                measurement.uuid = UUID()
+                measurement.patientFeedback = "Demo data created by iOS app."
+
+                let subMeasurement = NSEntityDescription.insertNewObject(forEntityName: "SubMeasurement", into: context) as! SubMeasurement
+                for j in 1...8 {
+                    for k in 1...8 {
+                        subMeasurement[j,k] = Int32(arc4random_uniform(1048576))
+                    }
+                }
+                subMeasurement.volume = measurement.volume
+                subMeasurement.uuid = UUID()
+                
+                subMeasurement.measurementOn = measurement.measurementOn!
+                subMeasurement.measurement = measurement
+                measurement.addToSubMeasurements(subMeasurement)
+                
+                do {
+                    try context.save()
+                    //webServiceManager.addObjectIDToQueue(objectID: measurement.objectID)
+                }
+                catch {
+                    
+                }
+                
             }
             date = date.addingTimeInterval(24*60*60)
             
