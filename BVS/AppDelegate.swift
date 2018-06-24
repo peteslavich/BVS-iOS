@@ -18,6 +18,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         webService = BVSWebService()
+        
+        let dateString = "06/20/2018"
+        let dateFormatter = DateFormatter()
+        
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        let dateFromString = dateFormatter.date(from: dateString)!
+        
+        createDemoData(startDate: dateFromString, numberOfDays: 2)
+        
         return true
     }
 
@@ -88,6 +97,142 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func createDemoData(startDate : Date, numberOfDays : Int) {
+        let calendar = Calendar.current
+        
+        let startDateComponents = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: startDate)
+        var date = calendar.date(from: startDateComponents)!
+        
+        for _ in 1...numberOfDays {
+            var tuple = [(Date,Int32)]()
+            var components = calendar.dateComponents([Calendar.Component.day, Calendar.Component.month, Calendar.Component.year], from: date)
+
+            let formatter = DateFormatter()
+            formatter.timeZone = TimeZone.current;
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss";
+            
+            components.hour = 0
+            components.minute = 41
+            var newDate = calendar.date(from: components)!
+            tuple.append((newDate,108))
+            
+            components.hour = 0
+            components.minute = 53
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,132))
+
+            components.hour = 1
+            components.minute = 0
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,155))
+
+            components.hour = 3
+            components.minute = 41
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,122))
+
+            components.hour = 3
+            components.minute = 53
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,138))
+
+            components.hour = 3
+            components.minute = 59
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,151))
+
+            components.hour = 9
+            components.minute = 00
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,110))
+
+            components.hour = 9
+            components.minute = 10
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,122))
+
+            components.hour = 9
+            components.minute = 20
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,136))
+
+            components.hour = 10
+            components.minute = 30
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,88))
+
+            components.hour = 10
+            components.minute = 40
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,108))
+
+            components.hour = 10
+            components.minute = 50
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,120))
+
+            components.hour = 11
+            components.minute = 00
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,128))
+
+            components.hour = 15
+            components.minute = 41
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,111))
+
+            components.hour = 15
+            components.minute = 53
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,133))
+
+            components.hour = 15
+            components.minute = 59
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,162))
+
+            components.hour = 18
+            components.minute = 41
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,121))
+
+            components.hour = 18
+            components.minute = 53
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,144))
+
+            components.hour = 18
+            components.minute = 59
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,180))
+
+            components.hour = 23
+            components.minute = 41
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,111))
+
+            components.hour = 23
+            components.minute = 53
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,126))
+
+            components.hour = 23
+            components.minute = 59
+            newDate = calendar.date(from: components)!
+            tuple.append((newDate,144))
+
+
+            for y in tuple {
+                print("\(formatter.string(from: y.0)): \(y.1)")
+            }
+            date = date.addingTimeInterval(24*60*60)
+            
+        }
+        
+        
+
     }
 
 }
