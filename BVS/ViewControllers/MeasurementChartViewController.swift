@@ -19,8 +19,6 @@ class MeasurementChartViewController : UIViewController {
     
     var datePicker = UIDatePicker()
     var selectedLabel : UILabel? = nil
-    var months: [String]!
-    let count = 100
     
     var startDate = Date()
     var endDate = Date()
@@ -39,9 +37,8 @@ class MeasurementChartViewController : UIViewController {
         labelStartDate?.text = dateFormatter.string(from: startDate)
         labelEndDate?.text = dateFormatter.string(from: endDate)
 
-        
         setUpChart();
-        self.setDataCount()
+        self.updateChartData()
 
         let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: #selector(MeasurementChartViewController.dateSelect(sender:)))
@@ -53,43 +50,29 @@ class MeasurementChartViewController : UIViewController {
     }
     
     func setUpChart() {
-//        self.title = "Line Chart 2"
-//        self.options = [.toggleValues,
-//                        .toggleFilled,
-//                        .toggleCircles,
-//                        .toggleCubic,
-//                        .toggleHorizontalCubic,
-//                        .toggleStepped,
-//                        .toggleHighlight,
-//                        .animateX,
-//                        .animateY,
-//                        .animateXY,
-//                        .saveToGallery,
-//                        .togglePinchZoom,
-//                        .toggleAutoScaleMinMax,
-//                        .toggleData]
-        
-        //chartView.delegate = self
-        
+
         chartView.chartDescription?.enabled = false
         
         chartView.dragEnabled = true
-        chartView.setScaleEnabled(true)
+        //chartView.setScaleEnabled(true)
         chartView.pinchZoomEnabled = false
         chartView.highlightPerDragEnabled = true
         
         chartView.backgroundColor = .white
         
         chartView.legend.enabled = false
+        chartView.setViewPortOffsets(left: 10, top: 20, right: 20, bottom: 10)
         
         let xAxis = chartView.xAxis
-        xAxis.labelPosition = .topInside
+        xAxis.labelPosition = .top
         xAxis.labelFont = .systemFont(ofSize: 10, weight: .light)
         xAxis.labelTextColor = UIColor(red: 255/255, green: 192/255, blue: 56/255, alpha: 1)
         xAxis.drawAxisLineEnabled = false
         xAxis.drawGridLinesEnabled = true
-        xAxis.centerAxisLabelsEnabled = true
+//        xAxis.centerAxisLabelsEnabled = true
+        xAxis.granularityEnabled = true
         xAxis.granularity = 3600
+        //xAxis.axisMaxLabels = 6
         xAxis.valueFormatter = DateValueFormatter()
         
         let leftAxis = chartView.leftAxis
@@ -107,13 +90,11 @@ class MeasurementChartViewController : UIViewController {
         
         chartView.legend.form = .line
         
-//        sliderX.value = 100
-//        slidersValueChanged(nil)
         
         chartView.animate(xAxisDuration: 1.0)
     }
 
-    func setDataCount() {
+    func updateChartData() {
 
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -136,22 +117,36 @@ class MeasurementChartViewController : UIViewController {
             fatalError("Failed to fetch measurements: \(error)")
         }
 
+        var max : Int32 = 0
         let values = measurements.map { (x) -> ChartDataEntry in
             let y = x.volume
+            if y > max {
+                max = y
+            }
             return ChartDataEntry(x: (x.measurementOn?.timeIntervalSince1970)!, y: Double(y))
         }
 
+        let xAxis = chartView.xAxis
+        xAxis.axisMinimum = startDate.timeIntervalSince1970
+        xAxis.axisMaximum = endDatePlusOne.timeIntervalSince1970
+        xAxis.granularity = (xAxis.axisMaximum - xAxis.axisMinimum) / 4
+        
+        let yAxis = chartView.leftAxis
+        yAxis.axisMaximum = Double(min(1000, max + 100))
+        
+        
         
         let set1 = LineChartDataSet(values: values, label: "DataSet 1")
         set1.axisDependency = .left
         set1.setColor(UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1))
         set1.lineWidth = 1.5
-        set1.drawCirclesEnabled = false
-        set1.drawValuesEnabled = false
+        set1.drawCirclesEnabled = true
+        set1.drawValuesEnabled = true
         set1.fillAlpha = 0.26
         set1.fillColor = UIColor(red: 51/255, green: 181/255, blue: 229/255, alpha: 1)
         set1.highlightColor = UIColor(red: 244/255, green: 117/255, blue: 117/255, alpha: 1)
-        set1.drawCircleHoleEnabled = false
+        set1.drawCircleHoleEnabled = true
+        set1.circleRadius = 4
         
         let data = LineChartData(dataSet: set1)
         data.setValueTextColor(.white)
@@ -196,7 +191,6 @@ class MeasurementChartViewController : UIViewController {
     }
     
     
-    //selected date func
     @objc func dateSelected(datePicker:UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
@@ -224,7 +218,8 @@ class MeasurementChartViewController : UIViewController {
     }
     
     public func refreshChart() {
-        setDataCount()
+        updateChartData()
+        chartView.animate(xAxisDuration: 1.0)
     }
 }
 
@@ -233,7 +228,7 @@ public class DateValueFormatter: NSObject, IAxisValueFormatter {
     
     override init() {
         super.init()
-        dateFormatter.dateFormat = "dd MMM HH:mm"
+        dateFormatter.dateFormat = "M/dd HH:mm"
     }
     
     public func stringForValue(_ value: Double, axis: AxisBase?) -> String {
