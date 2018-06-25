@@ -41,7 +41,7 @@ class MeasurementChartViewController : UIViewController {
 
         
         setUpChart();
-        self.setDataCount(100, range: 30)
+        self.setDataCount()
 
         let tap = UITapGestureRecognizer()
         tap.addTarget(self, action: #selector(MeasurementChartViewController.dateSelect(sender:)))
@@ -110,53 +110,36 @@ class MeasurementChartViewController : UIViewController {
 //        sliderX.value = 100
 //        slidersValueChanged(nil)
         
-        chartView.animate(xAxisDuration: 2.5)
+        chartView.animate(xAxisDuration: 1.0)
     }
 
-    func setDataCount(_ count: Int, range: UInt32) {
-        let now = Date()
+    func setDataCount() {
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+
+        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
         
-        let today = Calendar.current.date(from: Calendar.current.dateComponents([.year, .month, .day], from: now))
-        let threeDaysBack = today?.addingTimeInterval(-3600*24)
-        let twentyMinutes: TimeInterval = 1200
-        let timeValues = stride(from:Double((threeDaysBack?.timeIntervalSince1970)!), to:Double((today?.timeIntervalSince1970)!), by: twentyMinutes)
+        let endDatePlusOne = endDate.addingTimeInterval(24*3600)
+        let startPredicate = NSPredicate(format: "measurementOn >= %@ AND measurementOn < %@", startDate as NSDate, endDatePlusOne as NSDate)
+        measurementFetch.predicate = startPredicate
         
-//        let from = now - 72.0 * hourSeconds
-//        let to = now
-//
-//        let values = stride(from: from, to: to, by: 1200).map { (x) -> ChartDataEntry in
-//            let y = arc4random_uniform(range) + 50
-//            return ChartDataEntry(x: x, y: Double(y))
-//        }
-        var values = [ChartDataEntry]()
-        var x = 0
-        for t in timeValues {
-            let v = 50 + 75*x
-            values.append(ChartDataEntry(x: t, y: Double(v)))
-            x = (x + 1) % 3
-        }
-        
+        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: true)
+        measurementFetch.sortDescriptors = [sort]
         
 
-//        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = appDelegate.persistentContainer.viewContext
-//
-//        let measurementFetch = NSFetchRequest<Measurement>(entityName: "Measurement")
-//        let sort = NSSortDescriptor(key: #keyPath(Measurement.measurementOn), ascending: false)
-//        measurementFetch.sortDescriptors = [sort]
-        
-//        var measurements = [Measurement]()
-//        do {
-//            measurements = try context.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]
-//        }
-//        catch {
-//            fatalError("Failed to fetch measurements: \(error)")
-//        }
-        
-//        let values = measurements.map { (x) -> ChartDataEntry in
-//            let y = x.volume
-//            return ChartDataEntry(x: (x.measurementOn?.timeIntervalSince1970)!, y: Double(y))
-//        }
+        var measurements = [Measurement]()
+        do {
+            measurements = try context.fetch(measurementFetch as! NSFetchRequest<NSFetchRequestResult>) as! [Measurement]
+        }
+        catch {
+            fatalError("Failed to fetch measurements: \(error)")
+        }
+
+        let values = measurements.map { (x) -> ChartDataEntry in
+            let y = x.volume
+            return ChartDataEntry(x: (x.measurementOn?.timeIntervalSince1970)!, y: Double(y))
+        }
 
         
         let set1 = LineChartDataSet(values: values, label: "DataSet 1")
@@ -241,7 +224,7 @@ class MeasurementChartViewController : UIViewController {
     }
     
     public func refreshChart() {
-        
+        setDataCount()
     }
 }
 
