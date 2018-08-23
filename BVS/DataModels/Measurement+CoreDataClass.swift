@@ -28,13 +28,18 @@ public class Measurement: NSManagedObject, Encodable {
     }
     
     public func encode(to encoder: Encoder) throws {
+        
         var container = encoder.container(keyedBy: CodingKeys.self)
         
         if (self.serverID > 0) {
             try container.encode(serverID as Int64, forKey: .serverID)
         }
         
-        try container.encode(measurementOn! as Date, forKey: .measurementOn)
+        let e = DateFormatter()
+        e.dateFormat = "yyyy-MM-dd hh:mm:ss a"
+        let mOn = e.string(from: measurementOn! as Date)
+        
+        try container.encode(mOn, forKey: .measurementOn)
         try container.encode(volume as Int32, forKey: .volume)
         try container.encode(uuid, forKey: .uuid)
         
