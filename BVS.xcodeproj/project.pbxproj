@@ -26,6 +26,8 @@
 		0A0E5D81203FB5E10005ACDE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D80203FB5E10005ACDE /* LoginViewController.swift */; };
 		0A0E5D842065E6B40005ACDE /* BVSWebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D832065E6B40005ACDE /* BVSWebService.swift */; };
 		0A0E5D8620811DB60005ACDE /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A0E5D8520811DB60005ACDE /* User.swift */; };
+		0A323CAB21306BD90026CB21 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4C55BA20D7411100429132 /* Charts.framework */; };
+		0A323CAC21306BD90026CB21 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A4C55BA20D7411100429132 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0A4C55A020D6E81100429132 /* thumbs-up@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4C559E20D6E81100429132 /* thumbs-up@2x.png */; };
 		0A4C55A120D6E81100429132 /* thumbs-up@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4C559F20D6E81100429132 /* thumbs-up@3x.png */; };
 		0A4C55A420D6E8F700429132 /* thumbs-down@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0A4C55A220D6E8F600429132 /* thumbs-down@2x.png */; };
@@ -37,6 +39,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		0A323CAD21306BD90026CB21 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0A4C55B420D7411000429132 /* Charts.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = A58A4ED274A941CA248EA921;
+			remoteInfo = Charts;
+		};
 		0A4C55B920D7411100429132 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0A4C55B420D7411000429132 /* Charts.xcodeproj */;
@@ -60,6 +69,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
+				0A323CAC21306BD90026CB21 /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -105,6 +115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A0E5D6D203A0CB60005ACDE /* CoreBluetooth.framework in Frameworks */,
+				0A323CAB21306BD90026CB21 /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +246,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				0A323CAE21306BD90026CB21 /* PBXTargetDependency */,
 			);
 			name = BVS;
 			productName = BVS;
@@ -343,6 +355,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0A323CAE21306BD90026CB21 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Charts;
+			targetProxy = 0A323CAD21306BD90026CB21 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		0A0E5D5A203670F50005ACDE /* Main.storyboard */ = {
